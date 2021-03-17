@@ -1,0 +1,36 @@
+
+@font-face {
+    font-family: 'Jal_Onuel';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 글꼴 + 태그 선택자 */
+
+body, p, div, span, ul, li, dl, dt, dd, table, th, td, a, blockquote, input, textarea, fieldset, h1, h2, h3, h4, h5, h6, small, strong, b, i, em {
+    font-family: 'Jal_Onuel';
+    color: #555555;
+    line-height: 1.5em;
+    font-size: 15px;
+}
+
+
+#container .btn-primary {
+    background-color: #898bcf;
+    border: #898bcf 1px solid; 
+    outline: none;
+}
+
+#container .btn-primary:hover{
+    background-color: #a4a6d4;
+    
+}
+
+
+#container .btn-default {
+    color: #898bcf;
+    border: #898bcf 1px solid; 
+    outline: none;
+}
+

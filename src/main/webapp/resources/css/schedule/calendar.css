@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap");
+
+#calendar {
+  position: absolute;
+  left: 265px;
+  top: 9px;
+  width: 350px;
+  height: 350px;
+  box-sizing: border-box;
+  margin: 0px auto;
+  z-index: 10;
+}
+.main .sideb {
+  border: 2px solid #223d0c;
+  border-radius: 5px;
+  background-color: #cad8ca;
+  width: 350px;
+  float: left;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.main .header {
+  padding: 15px 0 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.main .header i {
+  padding: 0 5px;
+  cursor: pointer;
+}
+.main .header span {
+  display: inline-block;
+  margin: 0 3px;
+  font-weight: 700;
+}
+.main .sideb .showDate {
+  color: white;
+  text-align: right;
+  width: 100%;
+}
+.main .sideb .showDate i {
+  cursor: pointer;
+  background: #55f05d33;
+  border-radius: 4px;
+  padding: 8px 12px;
+  transform: scale(1);
+  transition: all 0.3s;
+}
+.main .sideb .showDate i.is-active {
+  transform: scale(-1);
+}
+.main .sideb table {
+  text-align: center;
+  width: 90%;
+  margin: 30px auto 0;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+.main .sideb table tbody:before {
+  content: "-";
+  display: block;
+  line-height: 0.75em;
+  color: transparent;
+}
+.main .sideb table th {
+  color: #062b0e;
+  text-align: center;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.main .sideb table td {
+  padding: 11px 5px;
+  color: #a9aaa9;
+  font-size: 0.75em;
+  transition: all 0.3s;
+  position: relative;
+}
+.main .sideb table td::before {
+  content: "";
+  display: none;
+  width: 50%;
+  height: 2px;
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, -8px);
+  background-color: #277e3e;
+}
+.main .sideb table td.currentDay::before {
+  display: block;
+}
+.main .sideb table td.selectable {
+  color: #072c1a;
+  cursor: pointer;
+}
+.main .sideb table td.selectable:hover {
+  background: #33a050;
+  color: white;
+}
+.main .sideb table td.between {
+  background-color: #25793b;
+  color: white;
+}
+.main .sideb table td.active, .main .sideb table td.hover {
+  background: #11361b;
+  color: white;
+}

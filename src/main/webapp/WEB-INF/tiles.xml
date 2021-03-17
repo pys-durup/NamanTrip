@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configureation 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+		<!-- 
+		schedule.main
+		schedule.addBasic
+		schedule.addSchedule
+		
+		schedule.view
+		
+		board.add
+		board.view
+		member.auth
+		형식으로 요청을 하기 때문에 *.*로 세팅
+	
+		디자인을 할 jsp 파일 -> main.jsp
+	-->
+	
+	<definition name="addschedule" template="/WEB-INF/views/layout/addschedulelayout.jsp">
+		<put-attribute name="asset" value="/WEB-INF/views/inc/asset.jsp"></put-attribute>
+		<put-attribute name="kakaomap" value="/WEB-INF/views/inc/kakaomap.jsp"></put-attribute>
+		<put-attribute name="includecss" value="/schedule/addschedule"></put-attribute> 
+		<put-attribute name="header" value="/WEB-INF/views/inc/scheduleheader.jsp"></put-attribute>
+		<put-attribute name="includejs" value="/schedule/addschedule"></put-attribute> 
+		<put-attribute name="content" value="/WEB-INF/views/schedule/addschedule.jsp"></put-attribute>		
+	</definition>
+	
+
+ 	<definition name="*.*" template="/WEB-INF/views/layout/mainlayout.jsp">
+		<put-attribute name="asset" value="/WEB-INF/views/inc/asset.jsp"></put-attribute>
+		<put-attribute name="includecss" value="/{1}/{2}"></put-attribute> 
+<!-- 		<put-attribute name="includejs" value="/schedule/addschedule"></put-attribute> -->
+		<put-attribute name="header" value="/WEB-INF/views/inc/header.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>		
+	</definition>
+	
+	
+
+</tiles-definitions>

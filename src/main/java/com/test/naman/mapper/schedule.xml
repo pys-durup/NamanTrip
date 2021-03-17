@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는 주로 파일의 이름으로 적는다 -->
+<!-- test.xml(Mapper File) SQL 관리 파일 -->
+<mapper namespace="schedule">
+
+	<select id="getregionlist" resultType="com.test.naman.schedule.RegionDTO">
+		select * from tblRegion
+	</select>
+	
+	<select id="getsigungulist" resultType="com.test.naman.schedule.SigunguDTO">
+		select * from tblSigungu where regionSeq = #{areaCode}
+	</select>
+	
+	<insert id="addbasicplan" parameterType="com.test.naman.schedule.TripPlanDTO">
+		insert into tblTripPlan (tripPlanseq, customerSeq, title, img, region, totalDate, startDate, endDate, regDate, readcnt, descript, likes)
+		values (tripPlanseq.nextVal, #{customerSeq},  #{title}, null, #{region}, #{totalDate}, #{startDate}, #{endDate}, sysdate, default, #{descript}, default)
+	</insert>
+	
+</mapper>
