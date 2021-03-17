@@ -1,5 +1,7 @@
 package com.test.naman.schedule;
 
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -86,11 +90,75 @@ public class ScheduleController {
 	
 	// 여행 스케줄 저장
 	@RequestMapping(value = "/schedule/savescheduledata.action", method = { RequestMethod.POST })
-	public void saveScheduleData(HttpServletRequest request, HttpServletResponse response, HttpSession session, String jsonData) {
+	public void saveScheduleData(HttpServletRequest request, HttpServletResponse response, HttpSession session, String jsonData, String tripPlanseq, String planDay) {
 		
+		System.out.println("뭐라고 찍히는지?");
 		System.out.println(jsonData);
+		PlanDetailDTO temp = new PlanDetailDTO();
+		temp.setPlanDay(planDay);
+		temp.setTripPlanSeq(tripPlanseq);
+
+		if (jsonData.equals("]")) {
+			System.out.println("데이터 있을때");
+			dao.clearScheduleData(temp); // 해당 날의 여행데이터 초기화
+			return;
+		} else {
+			System.out.println("데이터 없을때");
+		}
 		
-		//JSONArray array = JSONArray.
+		JSONParser parser = new JSONParser();
+		JSONArray list = null;
+		
+		try {
+			list = (JSONArray)parser.parse(jsonData);
+		} catch (Exception e) {
+			System.out.println("변환에 실패");
+			e.printStackTrace();
+		}
+		
+//		System.out.println(list);
+//		System.out.println(list.get(0));
+		ArrayList<PlanDetailDTO> itemList = new ArrayList<PlanDetailDTO>(); //저장할 데이터를 담을 리스트변수
+		
+		
+		for (int i=0 ; i < list.size() ; i++) {
+			JSONObject obj = (JSONObject)list.get(i);
+			PlanDetailDTO dto = new PlanDetailDTO();
+			
+			//System.out.println(obj.get("img"));
+			dto.setAddr1((String)obj.get("addr1"));
+			dto.setCat1((String)obj.get("cat1"));
+			dto.setContentId((String)obj.get("contentId"));
+			dto.setContentTypeId((String)obj.get("contentTypeId"));
+			dto.setImg((String)obj.get("img"));
+			dto.setMapX((String)obj.get("mapX"));
+			dto.setMapY((String)obj.get("mapY"));
+			dto.setPlanDay((String)obj.get("planDay"));
+			dto.setPlanNo((String)obj.get("planNo"));
+			dto.setTitle((String)obj.get("title"));
+			dto.setTripPlanSeq((String)obj.get("tripPlanseq"));
+			
+			
+			itemList.add(dto);
+		}
+		
+		
+		
+		dao.clearScheduleData(temp); // 해당 날의 여행데이터 초기화
+
+		
+		for(PlanDetailDTO dto : itemList) {
+			dao.saveScheduleData(dto); // 여행 데이터 추가
+		}
+		
+		
+		try {
+			PrintWriter out = response.getWriter();
+			out.println("성공");
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 
 	}

@@ -369,8 +369,10 @@ function saveScheduledata() {
 	console.log(tripPlanseq);
 	console.log($('#scheduleDetail').children().length);
 	let count = $('#scheduleDetail').children().length;
-	let title, addr1, img, mapX, mapY, contentId, contentTypeId, planDay, planNo, cat1
+	let title, addr1, img, mapX, mapY, contentId, contentTypeId, planNo, cat1;
 	
+	let planDay = $('#scheduleDate').children().first().text().substring(3);
+	let tripseq = tripPlanseq;
 	let jsonData ='[';
 	
 	for (let i = 0; i<count ; i++) {
@@ -383,9 +385,9 @@ function saveScheduledata() {
 		mapY = $('#scheduleDetail').children().eq(i).data('mapy');
 		contentId = $('#scheduleDetail').children().eq(i).data('contentid');
 		contentTypeId = $('#scheduleDetail').children().eq(i).data('contenttypeid');
-		planDay = $('#scheduleDate').children().first().text().substring(3);
 		planNo = $('#scheduleDetail').children().eq(i).data('index'); 
 		cat1 = $('#scheduleDetail').children().eq(i).data('cat1');
+
 
 /*		console.log(title);
 		console.log(addr1);
@@ -399,16 +401,17 @@ function saveScheduledata() {
 		console.log(cat1);*/
 
 		item += '{';
-		item += 	'title : ' + title + ',';
-		item += 	'addr1 : ' + addr1 + ',';
-		item += 	'img : ' + img + ',';
-		item += 	'mapX : ' + mapX + ',';
-		item += 	'mapY : ' + mapY + ',';
-		item += 	'contentId : ' + contentId + ',';
-		item += 	'contentTypeId : ' + contentTypeId + ',';
-		item += 	'planDay : ' + planDay + ',';
-		item += 	'planNo : ' + planNo + ',';
-		item += 	'cat1 : ' + cat1;
+		item += 	'\"title\" : \"' + title + '\",';
+		item += 	'\"addr1\" : \"' + addr1 + '\",';
+		item += 	'\"img\" : \"' + img + '\",';
+		item += 	'\"mapX\" : \"' + mapX + '\",';
+		item += 	'\"mapY\" : \"' + mapY + '\",';
+		item += 	'\"contentId\" : \"' + contentId + '\",';
+		item += 	'\"contentTypeId\" : \"' + contentTypeId + '\",';
+		item += 	'\"planDay\" : \"' + planDay + '\",';
+		item += 	'\"planNo\" : \"' + planNo + '\",';
+		item += 	'\"cat1\" : \"' + cat1 +'\"';
+		item += 	'\"tripPlanseq\" : \"' + tripseq +'\"';
 		item += '},';
 		
 		jsonData += item;
@@ -416,7 +419,7 @@ function saveScheduledata() {
 	
 	jsonData = jsonData.substring(0, (jsonData.length-1));
 	
-	jsonData += ']}';
+	jsonData += ']';
 	
 	console.log(jsonData);
 	
@@ -424,7 +427,7 @@ function saveScheduledata() {
 		url : '/naman/schedule/savescheduledata.action',
 		type : 'POST',
 		traditional: true,
-		data : "jsonData=" + jsonData,
+		data : "jsonData=" + jsonData +"&tripPlanseq="+ tripseq + "&planDay=" + planDay,
 		dataType : 'json',
 		success : function(data) {
 			console.log(data);

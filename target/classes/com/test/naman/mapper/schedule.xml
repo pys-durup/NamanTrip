@@ -29,4 +29,14 @@
 				where rnum = 1
 	</select>
 	
+	<insert id="savescheduledata" parameterType="com.test.naman.schedule.PlanDetailDTO">
+		insert into tblPlanDetail (planDetailSeq, tripPlanSeq, title, addr1, img, mapX, mapY,  contentId, contentTypeId, planDay, planNo, cat1, info )
+		values (planDetailSeq.Nextval, #{tripPlanSeq}, #{title}, #{addr1}, #{img}, #{mapX}, #{mapY}, #{contentId}, #{contentTypeId}, #{planDay}, #{planNo}, #{cat1}, null )
+	</insert>
+	
+	<delete id="clearscheduledata" parameterType="com.test.naman.schedule.PlanDetailDTO">
+		delete from tblPlanDetail where tripPlanSeq = #{tripPlanSeq} and planDay = #{planDay}
+	</delete>
+	
+	
 </mapper>

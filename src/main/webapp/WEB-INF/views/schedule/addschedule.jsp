@@ -335,20 +335,45 @@
 	// Day 선택 했을때
 	$(document).on('click', '#dayContent .dayItem', function() {
 
-		//console.log($(this));
-		setScheduleDate($(this));
+		
+		//console.log('DAY 클릭');
+		setScheduleDate($(this)); // 여행 일정의 날짜를 변경하는 메서드
+		//console.log($(this).children().first().children('.dayDay').text().substr(3)); // 몇일차인지
+		
+		let planDay = $(this).children().first().children('.dayDay').text().substr(3);
+		let tripseq = tripPlanseq;
+		
+		$.ajax({
+			url : '/naman/schedule/loadscheduledata.action',
+			type : 'POST',
+			traditional: true,
+			data : "&tripPlanseq="+ tripseq + "&planDay=" + planDay,
+			dataType : 'json',
+			success : function(data) {
+				console.log(data);
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log("Status: " + textStatus);
+				console.log("Error: " + errorThrown);
+				console.log(errorThrown);
+				console.warn(XMLHttpRequest.responseText);
+			}
+		});
+		
+		
+		
 	
 	});
 	
 	// 여행 일정의 날짜를 변경하는 메서드
 	function setScheduleDate(item) {
 		
-		console.log('DAY 클릭');
+		
 		$('#scheduleDate').text('');
 		
-		console.log(item.children('.dayItemLeft').children('.dayDay').text());
-		console.log(item.children('.dayItemLeft').children('.dayDate').text());
-		console.log(item.children('.dayItemRight').children('.dayOfWeek').text());
+		//console.log(item.children('.dayItemLeft').children('.dayDay').text());
+		//console.log(item.children('.dayItemLeft').children('.dayDate').text());
+		//console.log(item.children('.dayItemRight').children('.dayOfWeek').text());
 		
 		let dayDay = item.children('.dayItemLeft').children('.dayDay').text();
 		let dayDate = item.children('.dayItemLeft').children('.dayDate').text();

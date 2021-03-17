@@ -36,5 +36,24 @@ public class ScheduleDAO {
 		return template.selectOne("schedule.getlatestseq", customerSeq);
 	}
 
+	public int saveScheduleData(PlanDetailDTO dto) {
+		
+		return template.insert("schedule.savescheduledata", dto);
+	}
+
+	public int clearScheduleData(PlanDetailDTO dto) {
+		
+		return template.delete("schedule.clearscheduledata", dto);
+		
+	}
+
+
+
+
+
+
+
+
+
 		
 }
