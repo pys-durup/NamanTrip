@@ -39,6 +39,9 @@
 			<div class="dayAdd">
 				<div>DAY 추가</div>
 			</div>
+			<div class="dayDel">
+				<div>DAY 삭제</div>
+			</div>
 		</div>
 
 

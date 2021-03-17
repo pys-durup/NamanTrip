@@ -152,6 +152,23 @@ $(".dayAdd").on('click', function() {
 });
 
 
+// DAY 삭제 버튼
+$(".dayDel").on('click', function() {
+	
+	//console.log($("#dayList").children().length);
+	
+	if ($("#dayList").children().length == 1) {
+		alert('마지막 하나의 여행날은 삭제할 수 없습니다')
+		return;
+	}
+	
+	$("#dayList").children().last().detach();
+	
+	
+	
+});
+
+
 $(function() {
 
 	let index = 0;
