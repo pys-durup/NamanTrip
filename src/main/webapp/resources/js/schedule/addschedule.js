@@ -133,23 +133,7 @@ $(document).on('click', '#searchTheme .image_box', function() {
 	
 });
 
-// DAY 추가 버튼
-$(".dayAdd").on('click', function() {
 
-	let tmp = '';
-
-	tmp += '<div class="dayItem selectAble">'
-	tmp += '<div class="dayItemLeft">'
-	tmp += '<div class="dayDay">DAY1</div>'
-	tmp += '<div class="dayDate">03.10</div>'
-	tmp += '</div>'
-	tmp += '<div class="dayItemRight">'
-	tmp += '<div class="dayOfWeek">수요일</div>'
-	tmp += '</div>'
-	tmp += '</div>'
-
-	$("#dayList").append(tmp);
-});
 
 
 // DAY 삭제 버튼
@@ -170,6 +154,9 @@ $(".dayDel").on('click', function() {
 
 
 $(function() {
+	
+	
+	
 
 	let index = 0;
 	// 일정 경로

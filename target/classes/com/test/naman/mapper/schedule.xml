@@ -19,4 +19,14 @@
 		values (tripPlanseq.nextVal, #{customerSeq},  #{title}, null, #{region}, #{totalDate}, #{startDate}, #{endDate}, sysdate, default, #{descript}, default)
 	</insert>
 	
+	<select id="getlatestseq" parameterType="String" resultType="String">
+		select tripPlanseq 
+			from (select a.*, rownum as rnum 
+				from (select * from tblTripPlan 
+						where customerSeq = #{customerSeq}
+							order by regdate desc) 
+					a) 
+				where rnum = 1
+	</select>
+	
 </mapper>

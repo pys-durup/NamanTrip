@@ -42,6 +42,10 @@
 			<div class="dayDel">
 				<div>DAY 삭제</div>
 			</div>
+			<div>seq : ${tripPlanseq}</div>
+			<div>startDate : ${startDate}</div>
+			<div>endDate : ${endDate}</div>
+			<div>totalDate : ${totalDate}</div>
 		</div>
 
 
@@ -203,3 +207,36 @@
 		</div>
 	</div>
 </div>
+
+<script>
+
+	let startDate = '<c:out value="${startDate}"/>';
+	let endDate = '<c:out value="${endDate}"/>';
+	let totalDate = '<c:out value="${totalDate}"/>';
+	let tripPlanseq = '<c:out value="${tripPlanseq}"/>';
+
+	console.log('startDate' + startDate);
+	console.log('endDate' + endDate);
+	console.log('totalDate' + totalDate);
+	console.log('tripPlanseq' + tripPlanseq);
+
+
+	// DAY 추가 버튼
+	$(".dayAdd").on('click', function() {
+
+		let tmp = '';
+
+		tmp += '<div class="dayItem selectAble">'
+		tmp += '<div class="dayItemLeft">'
+		tmp += '<div class="dayDay">DAY1</div>'
+		tmp += '<div class="dayDate">03.10</div>'
+		tmp += '</div>'
+		tmp += '<div class="dayItemRight">'
+		tmp += '<div class="dayOfWeek">수요일</div>'
+		tmp += '</div>'
+		tmp += '</div>'
+
+		$("#dayList").append(tmp);
+	});
+
+</script>
