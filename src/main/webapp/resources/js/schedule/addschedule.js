@@ -17,6 +17,7 @@ codeMap.set('C01', '행사/축제');
 
 
 
+
 // 전체 일정 보기 버튼 클릭
 $(".dayAll").on('click', function(e) {
 //	alert('전체일정보기');
@@ -100,18 +101,9 @@ $("#areaCode").on('change', function(e) {
 	
 });
 
-// 일정 선택 CSS
-$(document).on('click', '#dayContent .selectAble', function() {
 
-	$("#dayContent .selectAble").each(function() {
-		$(this).removeClass('selected');
-	});
 
-	$(this).addClass('selected');
-
-});
-
-// 테마 선택시 CSS 변경 + 데이터 호출
+// 검색 - 테마 선택시 CSS 변경 + 데이터 호출
 $(document).on('click', '#searchTheme .image_box', function() {
 
 	if (searchFlag == 0) return;
@@ -133,52 +125,43 @@ $(document).on('click', '#searchTheme .image_box', function() {
 	
 });
 
+// 일정DAY 선택 CSS
+$(document).on('click', '#dayContent .selectAble', function() {
 
+	$("#dayContent .selectAble").each(function() {
+		$(this).removeClass('selected');
+	});
 
-
-// DAY 삭제 버튼
-$(".dayDel").on('click', function() {
-	
-	//console.log($("#dayList").children().length);
-	
-	if ($("#dayList").children().length == 1) {
-		alert('마지막 하나의 여행날은 삭제할 수 없습니다')
-		return;
-	}
-	
-	$("#dayList").children().last().detach();
-	
-	
+	$(this).addClass('selected');
 	
 });
 
-
 $(function() {
-	
-	
-	
 
 	let index = 0;
 	// 일정 경로
 	 $("#scheduleDetail").sortable({
 		 revert : true,
 		 placeholder : "schedule-placeholder",
-//		 update: function( event, ui ) {
-//			 console.log('update');
-//			 //$("#scheduleDetail").sortable( "refresh" );
-//		 },
-//		 beforeStop: function( event, ui) {
-//			 console.log('beforeStop');
-//
-//		 },
-		 over: function( event, ui) {
+		 update: function( event, ui ) {
+			 console.log('update');
+			 //$("#scheduleDetail").sortable( "refresh" );
+		 },
+		 change: function( event, ui) {
+			 console.log('change');
 
 		 },
+//		 over: function( event, ui) {
+//
+//		 },
 		 stop: function( event, ui) {
 			 console.log('stop');
 			 console.log($(this).children('.img_box'));
 			 rearrangeItem(); // 경로 숫자 재설정
 			 setScheduleMaker(); // 마커 재생성
+			 
+			 let result = $("#scheduleDetail").sortable('serialize');
+			 console.log(result);
 		 }
 //		 recive: function( event, ui) {
 //			 console.log('recive');
@@ -374,9 +357,88 @@ function rearrangeItem() {
 		//$(this).parent().removeAttr('data-index'); // 순서 삭제
 		//$(this).parent().attr('data-index', index); // 순서 추가
 		
+		$(this).parent().attr('id', 'index_'+ index);
+		
 		$(this).parent().data("index", index);
+		//$(this).parent().data("id", 'index_' + index);
 	});
+}
 
+function saveScheduledata() {
+	
+	console.log(tripPlanseq);
+	console.log($('#scheduleDetail').children().length);
+	let count = $('#scheduleDetail').children().length;
+	let title, addr1, img, mapX, mapY, contentId, contentTypeId, planDay, planNo, cat1
+	
+	let jsonData ='[';
+	
+	for (let i = 0; i<count ; i++) {
+		let item = '';
+		
+		title = $('#scheduleDetail').children().eq(i).data('title');
+		addr1 = $('#scheduleDetail').children().eq(i).data('addr1');
+		img = $('#scheduleDetail').children().eq(i).data('firstimage');
+		mapX = $('#scheduleDetail').children().eq(i).data('mapx');
+		mapY = $('#scheduleDetail').children().eq(i).data('mapy');
+		contentId = $('#scheduleDetail').children().eq(i).data('contentid');
+		contentTypeId = $('#scheduleDetail').children().eq(i).data('contenttypeid');
+		planDay = $('#scheduleDate').children().first().text().substring(3);
+		planNo = $('#scheduleDetail').children().eq(i).data('index'); 
+		cat1 = $('#scheduleDetail').children().eq(i).data('cat1');
+
+/*		console.log(title);
+		console.log(addr1);
+		console.log(img);
+		console.log(mapX);
+		console.log(mapY);
+		console.log(contentId);
+		console.log(contentTypeId);
+		console.log(planDay);
+		console.log(planNo);
+		console.log(cat1);*/
+
+		item += '{';
+		item += 	'title : ' + title + ',';
+		item += 	'addr1 : ' + addr1 + ',';
+		item += 	'img : ' + img + ',';
+		item += 	'mapX : ' + mapX + ',';
+		item += 	'mapY : ' + mapY + ',';
+		item += 	'contentId : ' + contentId + ',';
+		item += 	'contentTypeId : ' + contentTypeId + ',';
+		item += 	'planDay : ' + planDay + ',';
+		item += 	'planNo : ' + planNo + ',';
+		item += 	'cat1 : ' + cat1;
+		item += '},';
+		
+		jsonData += item;
+	}
+	
+	jsonData = jsonData.substring(0, (jsonData.length-1));
+	
+	jsonData += ']}';
+	
+	console.log(jsonData);
+	
+	$.ajax({
+		url : '/naman/schedule/savescheduledata.action',
+		type : 'POST',
+		traditional: true,
+		data : "jsonData=" + jsonData,
+		dataType : 'json',
+		success : function(data) {
+			console.log(data);
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			console.log("Status: " + textStatus);
+			console.log("Error: " + errorThrown);
+			console.log(errorThrown);
+			console.warn(XMLHttpRequest.responseText);
+		}
+	});
+	
+	
+	
 }
 
 
@@ -960,7 +1022,7 @@ function setScheduleMaker() {
 			cat1 = scheduleInfoList[i].cat1;			
 		}
 		let index = scheduleInfoList[i].index;
-//		console.log(title, cat1, index);
+		//console.log(title, cat1, index);
 		
 		let imageSrc = '/naman/resources/images/schedule/marker/index/'+ cat1 +'/'+ index +'.png';
 	    
@@ -1101,8 +1163,8 @@ function displayDistance(position, distance, lineCenterX, lineCenterY) {
 		});
 		
 		distanceOverlays.push(distanceOverlay);
-		console.log('거리값을 나타내는 overlay 배열');
-		console.log(distanceOverlays);
+		//console.log('거리값을 나타내는 overlay 배열');
+		//console.log(distanceOverlays);
 
 		// 지도에 표시합니다
 		distanceOverlay.setMap(map);

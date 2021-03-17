@@ -8,15 +8,17 @@
 	<!-- 일정 -->
 	<div id="daySection">
 		<div id="dayHeader">
-			<span>03.10</span> <span> ~ </span> <span>03.11(수요일)</span>
+			<!-- <span>03.10</span> <span> ~ </span> <span>03.11</span> -->
+			일정 보기
 		</div>
 		<div id="dayContent">
 			<div class="dayAll selectAble">
 				<span>전체 일정 보기</span>
 			</div>
 			<div id="dayList">
+			<!-- 		
 				<div class="dayItem selectAble selected">
-					<!-- dayItem -->
+					dayItem
 					<div class="dayItemLeft">
 						<div class="dayDay">DAY1</div>
 						<div class="dayDate">03.10</div>
@@ -26,7 +28,7 @@
 					</div>
 				</div>
 				<div class="dayItem selectAble">
-					<!-- dayItem -->
+					dayItem
 					<div class="dayItemLeft">
 						<div class="dayDay">DAY2</div>
 						<div class="dayDate">03.11</div>
@@ -34,7 +36,8 @@
 					<div class="dayItemRight">
 						<div class="dayOfWeek">목요일</div>
 					</div>
-				</div>
+				</div> 
+			-->
 			</div>
 			<div class="dayAdd">
 				<div>DAY 추가</div>
@@ -42,10 +45,12 @@
 			<div class="dayDel">
 				<div>DAY 삭제</div>
 			</div>
-			<div>seq : ${tripPlanseq}</div>
+			<%-- <div>seq : ${tripPlanseq}</div>
 			<div>startDate : ${startDate}</div>
 			<div>endDate : ${endDate}</div>
-			<div>totalDate : ${totalDate}</div>
+			<div>totalDate : ${totalDate}</div> --%>
+			<div><input type="button" onclick="saveScheduledata();" value="test"></div>
+			
 		</div>
 
 
@@ -55,7 +60,9 @@
 	<!-- 경로 -->
 	<div id="scheduleSection">
 		<div id="scheduleHeader">
-			<span>DAY1</span> <span> | </span> <span>03.10(수요일)</span>
+			<div id ="scheduleDate">
+				<!-- <span>DAY1</span> <span> | </span> <span>03.10(수요일)</span> -->		
+			</div>
 		</div>
 		<div id="scheduleBody">
 			<div id="scheduleDetail">
@@ -210,33 +217,169 @@
 
 <script>
 
-	let startDate = '<c:out value="${startDate}"/>';
-	let endDate = '<c:out value="${endDate}"/>';
+	let startDate = new Date('<c:out value="${startDate}"/>');
+	let endDate = new Date('<c:out value="${endDate}"/>');
 	let totalDate = '<c:out value="${totalDate}"/>';
 	let tripPlanseq = '<c:out value="${tripPlanseq}"/>';
 
-	console.log('startDate' + startDate);
-	console.log('endDate' + endDate);
-	console.log('totalDate' + totalDate);
-	console.log('tripPlanseq' + tripPlanseq);
+	//console.log('startDate' + startDate);
+	//console.log('endDate' + endDate);
+	//console.log('totalDate' + totalDate);
+	//console.log('tripPlanseq' + tripPlanseq);
+	//console.log(getDayOfWeek(startDate));
+	//console.log(getDayOfWeek(endDate));
+	//console.log(new Date(startDate));
+	
+	// 초기 세팅하는 부분
+	setDaylist();
+	$("#dayList").children().first().addClass('selected');
+	setScheduleDate($("#dayList").children().first());
+	setDayHeader();
+	
+	function setDaylist() {
+		let tempStartdate = new Date(startDate);
+		
+		for (let i=1; i<= totalDate; i++){
+			//console.log('day' + i);
+			
+			let tmp = '';
+			
+			tmp += '<div class="dayItem selectAble">';
+			tmp += '<div class="dayItemLeft">';
+			tmp += '<div class="dayDay">DAY'+ i +'</div>';
+			tmp += '<div class="dayDate">'+ (tempStartdate.getMonth()+1) +'.'+tempStartdate.getDate()+'</div>';
+			tmp += '</div>';
+			tmp += '<div class="dayItemRight">';
+			tmp += '<div class="dayOfWeek">'+ getDayOfWeek(tempStartdate) +'</div>';
+			tmp += '</div>';
+			tmp += '</div>';
+
+			$("#dayList").append(tmp);
+			
+			tempStartdate.setDate(tempStartdate.getDate() + 1); // 시작날짜에 1일 더하기
+		}
+	}
+	
+	// 요일을 구하는 함수
+	function getDayOfWeek(date) {
+		// yyyy-mm-dd
+		let weekName = new Array('일요일','월요일','화요일','수요일','목요일','금요일','토요일');
+		//let year = date.substring(0,4);
+		//let month = date.substring(5,7); 
+		//let day = date.substring(8,10);
+		//let week = new Date(year, month-1, day);
+		//week = weekName[week.getDay()];
+		
+		return weekName[date.getDay()];
+	}
+	
+	// date to string (yyyy-mm-dd)
+	function dateFormatToString(date) {
+		let year = date.getFullYear();
+		let month = (1 + date.getMonth());
+		month = month >= 10 ? month : '0' + month;
+		let day = date.getDate();
+		day = day >= 10 ? day : '0' + day;
+		return year + '-' + month + '-' + day;
+	}
 
 
 	// DAY 추가 버튼
 	$(".dayAdd").on('click', function() {
+		
+		totalDate++; // 총여행일수 + 1
+		//console.log('totalDate : ' + totalDate);
+		
+		endDate.setDate(endDate.getDate() + 1); // 여행 종료일 + 1
+		let tempStartdate = new Date(endDate);
 
 		let tmp = '';
-
-		tmp += '<div class="dayItem selectAble">'
-		tmp += '<div class="dayItemLeft">'
-		tmp += '<div class="dayDay">DAY1</div>'
-		tmp += '<div class="dayDate">03.10</div>'
-		tmp += '</div>'
-		tmp += '<div class="dayItemRight">'
-		tmp += '<div class="dayOfWeek">수요일</div>'
-		tmp += '</div>'
-		tmp += '</div>'
+		
+		tmp += '<div class="dayItem selectAble">';
+		tmp += '<div class="dayItemLeft">';
+		tmp += '<div class="dayDay">DAY'+ totalDate +'</div>';
+		tmp += '<div class="dayDate">'+ (tempStartdate.getMonth()+1) +'.'+tempStartdate.getDate()+'</div>';
+		tmp += '</div>';
+		tmp += '<div class="dayItemRight">';
+		tmp += '<div class="dayOfWeek">'+ getDayOfWeek(tempStartdate) +'</div>';
+		tmp += '</div>';
+		tmp += '</div>';
 
 		$("#dayList").append(tmp);
+		setDayHeader();
+		
+
 	});
+	
+	// DAY 삭제 버튼
+	$(".dayDel").on('click', function() {
+		
+		//console.log($("#dayList").children().length);
+		
+		if ($("#dayList").children().length == 1) {
+			alert('마지막 하나의 여행날은 삭제할 수 없습니다')
+			return;
+		}
+		
+		$("#dayList").children().last().detach();
+		
+		totalDate--;
+		//console.log('totalDate : ' + totalDate);
+		
+		endDate.setDate(endDate.getDate() - 1); // 여행 종료일 + 1
+		setDayHeader();
+		
+	});
+	
+	
+	// Day 선택 했을때
+	$(document).on('click', '#dayContent .dayItem', function() {
+
+		//console.log($(this));
+		setScheduleDate($(this));
+	
+	});
+	
+	// 여행 일정의 날짜를 변경하는 메서드
+	function setScheduleDate(item) {
+		
+		console.log('DAY 클릭');
+		$('#scheduleDate').text('');
+		
+		console.log(item.children('.dayItemLeft').children('.dayDay').text());
+		console.log(item.children('.dayItemLeft').children('.dayDate').text());
+		console.log(item.children('.dayItemRight').children('.dayOfWeek').text());
+		
+		let dayDay = item.children('.dayItemLeft').children('.dayDay').text();
+		let dayDate = item.children('.dayItemLeft').children('.dayDate').text();
+		let dayOfWeek = item.children('.dayItemRight').children('.dayOfWeek').text();
+		
+		let tmp = "";
+		tmp += '<span>'+ dayDay +'</span>';
+		tmp += '<span> | </span>';
+		tmp += '<span>'+ dayDate +'('+ dayOfWeek +')</span>';
+		
+		$('#scheduleDate').append(tmp);
+	}
+	
+	// 여행 시작날짜 ~ 여행 종료날짜 변경하는 메서드
+	function setDayHeader() {
+		
+		$('#dayHeader').text('');
+	
+		// '+ (tempStartdate.getMonth()+1) +'.'+tempStartdate.getDate()+'
+		let tmp = '';
+		tmp += '<span>'+ startDate.getFullYear() + '.'+ (startDate.getMonth()+1) + '.' + startDate.getDate()  +'</span>';
+		tmp += '<span> ~ </span>';
+		tmp += '<span>'+ endDate.getFullYear() + '.' + (endDate.getMonth()+1) + '.' + endDate.getDate()  +'</span>';
+		
+		
+		$('#dayHeader').append(tmp);
+
+	}
+	
+	
+	
+
 
 </script>

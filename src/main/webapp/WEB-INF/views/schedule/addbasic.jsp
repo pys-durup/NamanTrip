@@ -6,7 +6,7 @@
     
     <div class="container">
         <div class="section">
-        	<form method="POST" action="/naman/schedule/addschedule.action">
+        	<form method="POST" action="/naman/schedule/addbasicok.action">
             <div class="section-top">
                 <div class="section-title">Step 1. 여행 기본정보입력</div>
                 <div class="nextBtn">
