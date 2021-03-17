@@ -38,5 +38,9 @@
 		delete from tblPlanDetail where tripPlanSeq = #{tripPlanSeq} and planDay = #{planDay}
 	</delete>
 	
+	<select id="loadscheduledata" parameterType="com.test.naman.schedule.PlanDetailDTO" resultType="com.test.naman.schedule.PlanDetailDTO">
+		select * from tblPlanDetail where tripPlanSeq = #{tripPlanSeq} and planDay = #{planDay} order by planNo
+	</select>
+	
 	
 </mapper>

@@ -47,6 +47,11 @@ public class ScheduleDAO {
 		
 	}
 
+	public List<PlanDetailDTO> loadScheduleData(PlanDetailDTO dto) {
+		
+		return template.selectList("schedule.loadscheduledata", dto);
+	}
+
 
 
 

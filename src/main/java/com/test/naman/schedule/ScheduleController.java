@@ -1,9 +1,11 @@
 package com.test.naman.schedule;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -91,8 +93,7 @@ public class ScheduleController {
 	// 여행 스케줄 저장
 	@RequestMapping(value = "/schedule/savescheduledata.action", method = { RequestMethod.POST })
 	public void saveScheduleData(HttpServletRequest request, HttpServletResponse response, HttpSession session, String jsonData, String tripPlanseq, String planDay) {
-		
-		System.out.println("뭐라고 찍히는지?");
+
 		System.out.println(jsonData);
 		PlanDetailDTO temp = new PlanDetailDTO();
 		temp.setPlanDay(planDay);
@@ -164,4 +165,77 @@ public class ScheduleController {
 	}
 	
 
+	// 여행 스케줄 불러오기
+	@RequestMapping(value = "/schedule/loadscheduledata.action", method = { RequestMethod.POST })
+	public void loadScheduleData(HttpServletRequest request, HttpServletResponse response, HttpSession session, String tripPlanseq, String planDay) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("application/json; charset=utf-8");
+		
+		PlanDetailDTO dto = new PlanDetailDTO();
+		dto.setPlanDay(planDay);
+		dto.setTripPlanSeq(tripPlanseq);
+		
+		List<PlanDetailDTO> list = dao.loadScheduleData(dto);
+		String item = "[";
+		
+		for (int i=0 ; i<list.size() ; i++) {
+			
+			item += "{";
+			item += 	"\"title\" : \"" + list.get(i).getTitle() + "\",";
+			item += 	"\"addr1\" : \"" + list.get(i).getAddr1() + "\",";
+			item += 	"\"img\" : \"" + list.get(i).getImg() + "\",";
+			item += 	"\"mapX\" : \"" + list.get(i).getMapX() + "\",";
+			item += 	"\"mapY\" : \"" + list.get(i).getMapY() + "\",";
+			item += 	"\"contentId\" : \"" + list.get(i).getContentId() + "\",";
+			item += 	"\"contentTypeId\" : \"" + list.get(i).getContentTypeId() + "\",";
+			item += 	"\"planDay\" : \"" + list.get(i).getPlanDay() + "\",";
+			item += 	"\"index\" : \"" + list.get(i).getPlanNo() + "\",";
+			item += 	"\"cat1\" : \"" + list.get(i).getCat1() +"\"";
+			item += "},";
+			
+			
+		}
+		
+		item = item.substring(0, item.length()-1);
+		item += "]";
+		
+		if (item.equals("]")) {
+			item = "{\"result\" : \"0\"}";
+		}
+		
+		System.out.println(item);
+		try {
+			PrintWriter out = response.getWriter();
+			out.println(item);
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

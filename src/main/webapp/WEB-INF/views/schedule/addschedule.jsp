@@ -217,6 +217,17 @@
 
 <script>
 
+	//테마 코드 & 테마 이름 Map
+	let codeMap = new Map();
+	
+	codeMap.set('A02', '인문 관광지');
+	codeMap.set('A01', '자연 관광지');
+	codeMap.set('A05', '음식점');
+	codeMap.set('A04', '쇼핑');
+	codeMap.set('A03', '레포츠');
+	codeMap.set('B02', '숙소');
+	codeMap.set('C01', '행사/축제');
+
 	let startDate = new Date('<c:out value="${startDate}"/>');
 	let endDate = new Date('<c:out value="${endDate}"/>');
 	let totalDate = '<c:out value="${totalDate}"/>';
@@ -335,7 +346,7 @@
 	// Day 선택 했을때
 	$(document).on('click', '#dayContent .dayItem', function() {
 
-		
+		$("#scheduleDetail").html(""); 
 		//console.log('DAY 클릭');
 		setScheduleDate($(this)); // 여행 일정의 날짜를 변경하는 메서드
 		//console.log($(this).children().first().children('.dayDay').text().substr(3)); // 몇일차인지
@@ -351,6 +362,63 @@
 			dataType : 'json',
 			success : function(data) {
 				console.log(data);
+				
+				if (data.result == '0') {
+					setScheduleMaker();
+					relayout();
+					return;
+				}
+				
+				$(data).each(function(index, item) {
+				
+					console.log(item.title);
+					let temp = '';
+					
+					temp += '<div class="resultItem ui-draggable ui-draggable-handle" data-addr1="'+item.addr1+'" data-mapy="'+item.mapY+'"';
+					temp += 'data-mapx="'+item.mapX+'" data-title="'+item.title+'" data-contentid="'+item.contentId+'" data-contenttypeid="'+item.contentTypeId+'" ';
+					temp += 'data-firstimage="'+item.img+'" data-cat1="'+item.cat1+'" data-index="'+item.index+'" style="width: 210px; height: 90px;">';
+					temp += '<div class="img_box">';
+					temp += '<img src="'+item.img+'">';
+					temp += '<div class="item_number" style="">'+item.index+'</div>';
+					temp += '</div>';
+					temp += '<div class="content_box">';
+					temp += '<p class="content_name" ondragstart="return false" onselectstart="return false">'+item.title+'</p>';
+					temp += '<p class="content_type" ondragstart="return false" onselectstart="return false">'+codeMap.get(item.cat1)+'</p>';
+					temp += '</div>';
+					temp += '<div class="btn_del" style="">';
+					temp += '<span class="glyphicon glyphicon-trash deleteScheduleItem"></span>';
+					temp += '</div>';
+					temp += '</div>';
+		
+					
+					$("#scheduleDetail").append(temp);
+					
+				});
+				
+				setScheduleMaker();
+				
+				/*
+				<div class="resultItem ui-draggable ui-draggable-handle" data-addr1="세종특별자치시 연서면 도신고복로 586" data-mapy="36.6000120047" 
+				data-mapx="127.2274836912" data-title="고복자연공원" data-contentid="125875" data-contenttypeid="12" 
+				data-firstimage="http://tong.visitkorea.or.kr/cms/resource/44/1922344_image2_1.jpg" data-cat1="A02" style="width: 210px; height: 90px;" id="index_1">
+					<div class="img_box">
+						<img src="http://tong.visitkorea.or.kr/cms/resource/44/1922344_image2_1.jpg">
+						<div class="item_number" style="">1</div>
+					</div>
+					<div class="content_box">
+						<p class="content_name" ondragstart="return false" onselectstart="return false">고복자연공원</p>
+						<p class="content_type" ondragstart="return false" onselectstart="return false">인문 관광지</p>
+					</div>
+					<div class="btn_del" style="">
+						<span class="glyphicon glyphicon-trash deleteScheduleItem"></span>
+					</div>
+					<div class="btn_box" style="display: none;">
+						<input type="button" class="btn btn-default detailCommonBtn" data-toggle="modal" data-target="#detailCommonInfo" value="정보보기">
+						<input type="button" class="btn btn-default addScheduleItem" value="일정추가">
+					</div>
+				</div>
+				*/
+				
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown) {
 				console.log("Status: " + textStatus);

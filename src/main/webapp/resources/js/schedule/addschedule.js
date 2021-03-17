@@ -3,19 +3,6 @@
  */
 // setScheduleMaker(); // 일정 목록의 마커 생성
 
-// 테마 코드 & 테마 이름 Map
-let codeMap = new Map();
-
-codeMap.set('A02', '인문 관광지');
-codeMap.set('A01', '자연 관광지');
-codeMap.set('A05', '음식점');
-codeMap.set('A04', '쇼핑');
-codeMap.set('A03', '레포츠');
-codeMap.set('B02', '숙소');
-codeMap.set('C01', '행사/축제');
-
-
-
 
 
 // 전체 일정 보기 버튼 클릭
@@ -160,8 +147,7 @@ $(function() {
 			 rearrangeItem(); // 경로 숫자 재설정
 			 setScheduleMaker(); // 마커 재생성
 			 
-			 let result = $("#scheduleDetail").sortable('serialize');
-			 console.log(result);
+			 saveScheduledata(); // 일정정보 저장
 		 }
 //		 recive: function( event, ui) {
 //			 console.log('recive');
@@ -313,6 +299,7 @@ $(document).on('click', '.deleteScheduleItem', function(e) {
 //	$("#scheduleDetail").sortable( "refreshPositions" ); // Refresh the cached positions of the sortable items
 	rearrangeItem(); // 경로 숫자 재설정
 	setScheduleMaker(); // 마커 재생성
+	saveScheduledata(); // 일정정보 저장
 
 });
 
@@ -431,6 +418,7 @@ function saveScheduledata() {
 		dataType : 'json',
 		success : function(data) {
 			console.log(data);
+
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
 			console.log("Status: " + textStatus);
@@ -700,6 +688,8 @@ function getData(number, cate) {
 						if (setMarkerIW != undefined) {
 							setMarkerIW.close(); // 인포윈도우 초기화
 						}
+						
+						saveScheduledata(); // 일정정보 저장
 						
 //						moveMap();
 
