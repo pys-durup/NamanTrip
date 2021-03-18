@@ -45,11 +45,10 @@
 			<div class="dayDel">
 				<div>DAY 삭제</div>
 			</div>
-			<%-- <div>seq : ${tripPlanseq}</div>
+			<div>seq : ${tripPlanSeq}</div>
 			<div>startDate : ${startDate}</div>
 			<div>endDate : ${endDate}</div>
-			<div>totalDate : ${totalDate}</div> --%>
-			<div><input type="button" onclick="saveScheduledata();" value="test"></div>
+			<div>totalDate : ${totalDate}</div>
 			
 		</div>
 
@@ -231,12 +230,12 @@
 	let startDate = new Date('<c:out value="${startDate}"/>');
 	let endDate = new Date('<c:out value="${endDate}"/>');
 	let totalDate = '<c:out value="${totalDate}"/>';
-	let tripPlanseq = '<c:out value="${tripPlanseq}"/>';
+	let tripPlanSeq = '<c:out value="${tripPlanSeq}"/>';
 
 	//console.log('startDate' + startDate);
 	//console.log('endDate' + endDate);
 	//console.log('totalDate' + totalDate);
-	//console.log('tripPlanseq' + tripPlanseq);
+	//console.log('tripPlanSeq' + tripPlanSeq);
 	//console.log(getDayOfWeek(startDate));
 	//console.log(getDayOfWeek(endDate));
 	//console.log(new Date(startDate));
@@ -302,6 +301,29 @@
 		//console.log('totalDate : ' + totalDate);
 		
 		endDate.setDate(endDate.getDate() + 1); // 여행 종료일 + 1
+		let endDateStr = dateFormatToString(endDate); // 하루가 증가한 여행 종료일 yyyy-mm-dd
+		console.log(endDateStr);
+		//tripPlanSeq
+		
+		//DB 업데이트 ajax
+ 		$.ajax({
+			url : '/naman/schedule/increaseday.action',
+			type : 'GET',
+			traditional: true,
+			data : "totalDate="+ totalDate + "&endDate=" + endDateStr + "&tripPlanSeq=" + tripPlanSeq,
+			dataType : 'text',
+			success : function(data) {
+				console.log(data);
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log("Status: " + textStatus);
+				console.log("Error: " + errorThrown);
+				console.log(errorThrown);
+				console.warn(XMLHttpRequest.responseText);
+			}
+		});
+		
+		
 		let tempStartdate = new Date(endDate);
 
 		let tmp = '';
@@ -317,7 +339,7 @@
 		tmp += '</div>';
 
 		$("#dayList").append(tmp);
-		setDayHeader();
+		setDayHeader(); // 날짜 수정
 		
 
 	});
@@ -334,11 +356,31 @@
 		
 		$("#dayList").children().last().detach();
 		
+
 		totalDate--;
 		//console.log('totalDate : ' + totalDate);
 		
-		endDate.setDate(endDate.getDate() - 1); // 여행 종료일 + 1
-		setDayHeader();
+		endDate.setDate(endDate.getDate() - 1); // 여행 종료일 - 1
+		setDayHeader(); // 날짜 수정
+		let endDateStr = dateFormatToString(endDate); // 하루가 감소한 여행 종료일 'yyyy-mm-dd'
+		
+		//DB 업데이트 ajax
+/*  		$.ajax({
+			url : '/naman/schedule/decreaseday.action',
+			type : 'GET',
+			traditional: true,
+			data : "totalDate="+ totalDate + "&endDate=" + endDateStr + "&tripPlanSeq=" + tripPlanSeq,
+			dataType : 'text',
+			success : function(data) {
+				console.log(data);
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log("Status: " + textStatus);
+				console.log("Error: " + errorThrown);
+				console.log(errorThrown);
+				console.warn(XMLHttpRequest.responseText);
+			}
+		});  */
 		
 	});
 	
@@ -352,20 +394,19 @@
 		//console.log($(this).children().first().children('.dayDay').text().substr(3)); // 몇일차인지
 		
 		let planDay = $(this).children().first().children('.dayDay').text().substr(3);
-		let tripseq = tripPlanseq;
+		let tripseq = tripPlanSeq;
 		
 		$.ajax({
 			url : '/naman/schedule/loadscheduledata.action',
 			type : 'POST',
 			traditional: true,
-			data : "&tripPlanseq="+ tripseq + "&planDay=" + planDay,
+			data : "&tripPlanSeq="+ tripseq + "&planDay=" + planDay,
 			dataType : 'json',
 			success : function(data) {
 				console.log(data);
 				
 				if (data.result == '0') {
-					setScheduleMaker();
-					relayout();
+					setScheduleMaker(); // 마커 생성.
 					return;
 				}
 				

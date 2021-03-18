@@ -1,7 +1,7 @@
 /**
  * addschedule.js
  */
-// setScheduleMaker(); // 일정 목록의 마커 생성
+
 
 
 
@@ -353,13 +353,13 @@ function rearrangeItem() {
 
 function saveScheduledata() {
 	
-	console.log(tripPlanseq);
+	console.log(tripPlanSeq);
 	console.log($('#scheduleDetail').children().length);
 	let count = $('#scheduleDetail').children().length;
 	let title, addr1, img, mapX, mapY, contentId, contentTypeId, planNo, cat1;
 	
 	let planDay = $('#scheduleDate').children().first().text().substring(3);
-	let tripseq = tripPlanseq;
+	let tripseq = tripPlanSeq;
 	let jsonData ='[';
 	
 	for (let i = 0; i<count ; i++) {
@@ -398,7 +398,7 @@ function saveScheduledata() {
 		item += 	'\"planDay\" : \"' + planDay + '\",';
 		item += 	'\"planNo\" : \"' + planNo + '\",';
 		item += 	'\"cat1\" : \"' + cat1 +'\"';
-		item += 	'\"tripPlanseq\" : \"' + tripseq +'\"';
+		item += 	'\"tripPlanSeq\" : \"' + tripseq +'\"';
 		item += '},';
 		
 		jsonData += item;
@@ -414,7 +414,7 @@ function saveScheduledata() {
 		url : '/naman/schedule/savescheduledata.action',
 		type : 'POST',
 		traditional: true,
-		data : "jsonData=" + jsonData +"&tripPlanseq="+ tripseq + "&planDay=" + planDay,
+		data : "jsonData=" + jsonData +"&tripPlanSeq="+ tripseq + "&planDay=" + planDay,
 		dataType : 'json',
 		success : function(data) {
 			console.log(data);
@@ -781,9 +781,8 @@ $('#detailCommonInfo').on('show.bs.modal', function (e) {
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 mapOption = {
-	center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	level : 8 // 지도의 확대 레벨
-
+	center : new kakao.maps.LatLng(36.658481, 127.997876), // 지도의 중심좌표
+	level : 12 // 지도의 확대 레벨
 };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -866,7 +865,11 @@ function setMarker(mapx, mapy, title, category) {
 		position : selectPosition,
 		image : markerImage
 	});
-
+	
+	// 맵 확대 수정
+	map.setLevel(9);
+	
+	
 	// 마커가 지도 위에 표시되도록 설정합니다
 	selectMarker.setMap(map);
 
@@ -993,6 +996,13 @@ function setScheduleMaker() {
 		for (let i = 0; i < distanceOverlays.length; i++) {
 			distanceOverlays[i].setMap(null); // 맵에서 거리정보 초기화
 		}
+	}
+	
+	// 맵에 표시할 마커가 없을 경우 처리
+	//console.log(scheduleInfoList);
+	if (scheduleInfoList.length == 0) {
+		moveMapDefault();
+		return;
 	}
 	
 	scheduleMarkers = [];
@@ -1185,6 +1195,15 @@ function moveMap(mapx, mapy) {
     map.panTo(moveLatLon);            
 }
 
+
+/*
+ * 지도의 기본 세팅으로 중심을 이동 시킨다
+ */
+function moveMapDefault() {
+	var LatLng = new kakao.maps.LatLng('36.658481', '127.997876');
+	map.setLevel(12);
+	map.setCenter(LatLng);
+}
 
 
 

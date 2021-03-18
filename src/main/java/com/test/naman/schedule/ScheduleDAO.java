@@ -52,6 +52,11 @@ public class ScheduleDAO {
 		return template.selectList("schedule.loadscheduledata", dto);
 	}
 
+	public int increaseDay(TripPlanDTO dto) {
+		
+		return template.update("schedule.increaseday", dto);
+	}
+
 
 
 

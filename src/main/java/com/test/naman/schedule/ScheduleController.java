@@ -57,14 +57,14 @@ public class ScheduleController {
 		int result = dao.addBasicPlan(dto); // 기본여행정보 DB저장 작업
 		
 		// 방금 만든 여행의 seq(식별자)를 가져와야 한다.
-		String tripPlanseq = dao.getLatestSeq(customerSeq);
+		String tripPlanSeq = dao.getLatestSeq(customerSeq);
 		
 
 		
 
 		try {
 			if (result == 1) {
-				response.sendRedirect("/naman/schedule/addschedule.action?tripPlanseq="+tripPlanseq+"&startDate="+dto.getStartDate()+"&endDate="+dto.getEndDate()+"&totalDate="+dto.getTotalDate());
+				response.sendRedirect("/naman/schedule/addschedule.action?tripPlanSeq="+tripPlanSeq+"&startDate="+dto.getStartDate()+"&endDate="+dto.getEndDate()+"&totalDate="+dto.getTotalDate());
 			} else {
 				response.sendRedirect("/naman/schedule/addbasic.action");
 			}
@@ -76,13 +76,14 @@ public class ScheduleController {
 
 	// 여행 상세일정
 	@RequestMapping(value = "/schedule/addschedule.action", method = { RequestMethod.GET })
-	public String addSchedule(HttpServletRequest request, HttpServletResponse response, HttpSession session, String tripPlanseq, String startDate, String endDate, String totalDate) {
+	public String addSchedule(HttpServletRequest request, HttpServletResponse response, HttpSession session, String tripPlanSeq) {
 
 		List<RegionDTO> regionList = dao.getRegionList();
+		TripPlanDTO dto = dao.getTripPlan(tripPlanSeq);
 
 		request.setAttribute("regionList", regionList);
 		
-		request.setAttribute("tripPlanseq", tripPlanseq);
+		request.setAttribute("tripPlanSeq", tripPlanSeq);
 		request.setAttribute("startDate", startDate);
 		request.setAttribute("endDate", endDate);
 		request.setAttribute("totalDate", totalDate);
@@ -92,12 +93,12 @@ public class ScheduleController {
 	
 	// 여행 스케줄 저장
 	@RequestMapping(value = "/schedule/savescheduledata.action", method = { RequestMethod.POST })
-	public void saveScheduleData(HttpServletRequest request, HttpServletResponse response, HttpSession session, String jsonData, String tripPlanseq, String planDay) {
+	public void saveScheduleData(HttpServletRequest request, HttpServletResponse response, HttpSession session, String jsonData, String tripPlanSeq, String planDay) {
 
 		System.out.println(jsonData);
 		PlanDetailDTO temp = new PlanDetailDTO();
 		temp.setPlanDay(planDay);
-		temp.setTripPlanSeq(tripPlanseq);
+		temp.setTripPlanSeq(tripPlanSeq);
 
 		if (jsonData.equals("]")) {
 			System.out.println("데이터 있을때");
@@ -137,7 +138,7 @@ public class ScheduleController {
 			dto.setPlanDay((String)obj.get("planDay"));
 			dto.setPlanNo((String)obj.get("planNo"));
 			dto.setTitle((String)obj.get("title"));
-			dto.setTripPlanSeq((String)obj.get("tripPlanseq"));
+			dto.setTripPlanSeq((String)obj.get("tripPlanSeq"));
 			
 			
 			itemList.add(dto);
@@ -167,14 +168,14 @@ public class ScheduleController {
 
 	// 여행 스케줄 불러오기
 	@RequestMapping(value = "/schedule/loadscheduledata.action", method = { RequestMethod.POST })
-	public void loadScheduleData(HttpServletRequest request, HttpServletResponse response, HttpSession session, String tripPlanseq, String planDay) throws ServletException, IOException {
+	public void loadScheduleData(HttpServletRequest request, HttpServletResponse response, HttpSession session, String tripPlanSeq, String planDay) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("application/json; charset=utf-8");
 		
 		PlanDetailDTO dto = new PlanDetailDTO();
 		dto.setPlanDay(planDay);
-		dto.setTripPlanSeq(tripPlanseq);
+		dto.setTripPlanSeq(tripPlanSeq);
 		
 		List<PlanDetailDTO> list = dao.loadScheduleData(dto);
 		String item = "[";
@@ -214,6 +215,27 @@ public class ScheduleController {
 		}
 		
 		
+	}
+	
+	// 여행 day 추가
+	@RequestMapping(value = "/schedule/increaseday.action", method = { RequestMethod.GET })
+	public void increaseDay(HttpServletRequest request, HttpServletResponse response, HttpSession session, TripPlanDTO dto) {
+		
+		System.out.println(dto.getTripPlanSeq());
+		System.out.println(dto.getTotalDate());
+		System.out.println(dto.getEndDate());
+		
+		// DB처리
+		// 여행 종료날짜 총여행일수 UPDATE
+		int result = dao.increaseDay(dto);
+		
+		try {
+			PrintWriter out = response.getWriter();
+			out.println(result);
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
 

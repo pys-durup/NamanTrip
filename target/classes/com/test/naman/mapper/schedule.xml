@@ -43,4 +43,9 @@
 	</select>
 	
 	
+	<update id="increaseday" parameterType="com.test.naman.schedule.TripPlanDTO">
+		update tblTripPlan set totalDate = #{totalDate}, endDate = #{endDate} where tripPlanSeq = #{tripPlanSeq}
+	</update>
+	
+	
 </mapper>
