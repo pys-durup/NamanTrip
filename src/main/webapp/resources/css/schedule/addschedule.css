@@ -146,11 +146,12 @@
 }
 
 
-#daySection .dayItem, #daySection .dayAll, #daySection .dayAdd {
+#daySection .dayItem, #daySection .dayAll{
     border-bottom: 1px solid white;
     background-color: #8f9993;
     height: 70px;
 }
+
 
 #daySection .dayAll {
     color: white;
@@ -159,23 +160,29 @@
     line-height: 60px;
 }
 
-#daySection .dayAdd {
+#daySection .dayAdd, #daySection .dayDel {
     height: 50px;
-    padding: 13px;
+    margin: 10px 5px 10px 3px;
     color: white;
     text-align: center;
+    font-weight: bold;
     font-size: 1.0em;
     border: 1px solid white;
+    box-shadow: 2px 2px 2px 2px #405318;
 }
 
-#daySection .dayAll:hover, #daySection .dayItem:hover, #daySection .dayAdd:hover {
+#daySection .dayAdd div, #daySection .dayDel div {
+	line-height: 45px;
+}
+
+#daySection .dayAll:hover, #daySection .dayItem:hover, #daySection .dayAdd:hover, #daySection .dayDel:hover {
     opacity: 0.7;
-    background-color: #92a172;
+    background-color: #405318;
     cursor: pointer;
 }
 
 #daySection .selected {
-    background-color: #92a172;
+    background-color: #405318;
 }
 
 

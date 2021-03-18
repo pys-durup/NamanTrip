@@ -19,4 +19,42 @@
 		values (tripPlanseq.nextVal, #{customerSeq},  #{title}, null, #{region}, #{totalDate}, #{startDate}, #{endDate}, sysdate, default, #{descript}, default)
 	</insert>
 	
+	<select id="getlatestseq" parameterType="String" resultType="String">
+		select tripPlanseq 
+			from (select a.*, rownum as rnum 
+				from (select * from tblTripPlan 
+						where customerSeq = #{customerSeq}
+							order by regdate desc) 
+					a) 
+				where rnum = 1
+	</select>
+	
+	<select id="gettripplan" parameterType="String" resultType="com.test.naman.schedule.TripPlanDTO"  >
+		select * from tblTripPlan where tripPlanseq = #{tripPlanseq}
+	</select>
+	
+	<insert id="savescheduledata" parameterType="com.test.naman.schedule.PlanDetailDTO">
+		insert into tblPlanDetail (planDetailSeq, tripPlanSeq, title, addr1, img, mapX, mapY,  contentId, contentTypeId, planDay, planNo, cat1, info )
+		values (planDetailSeq.Nextval, #{tripPlanSeq}, #{title}, #{addr1}, #{img}, #{mapX}, #{mapY}, #{contentId}, #{contentTypeId}, #{planDay}, #{planNo}, #{cat1}, null )
+	</insert>
+	
+	<delete id="clearscheduledata" parameterType="com.test.naman.schedule.PlanDetailDTO">
+		delete from tblPlanDetail where tripPlanSeq = #{tripPlanSeq} and planDay = #{planDay}
+	</delete>
+	
+	<select id="loadscheduledata" parameterType="com.test.naman.schedule.PlanDetailDTO" resultType="com.test.naman.schedule.PlanDetailDTO">
+		select * from tblPlanDetail where tripPlanSeq = #{tripPlanSeq} and planDay = #{planDay} order by planNo
+	</select>
+	
+	
+	<update id="updateday" parameterType="com.test.naman.schedule.TripPlanDTO">
+		update tblTripPlan set totalDate = #{totalDate}, endDate = #{endDate} where tripPlanSeq = #{tripPlanSeq}
+	</update>
+	
+	<delete id="daydeleteschedule" parameterType="com.test.naman.schedule.PlanDetailDTO">
+		delete from tblPlanDetail where tripPlanSeq = #{tripPlanSeq} and planDay = #{planDay}
+	</delete>
+	
+
+	
 </mapper>

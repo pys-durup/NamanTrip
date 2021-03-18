@@ -1,18 +1,6 @@
 /**
  * addschedule.js
  */
-// setScheduleMaker(); // 일정 목록의 마커 생성
-
-// 테마 코드 & 테마 이름 Map
-let codeMap = new Map();
-
-codeMap.set('A02', '인문 관광지');
-codeMap.set('A01', '자연 관광지');
-codeMap.set('A05', '음식점');
-codeMap.set('A04', '쇼핑');
-codeMap.set('A03', '레포츠');
-codeMap.set('B02', '숙소');
-codeMap.set('C01', '행사/축제');
 
 
 
@@ -100,18 +88,9 @@ $("#areaCode").on('change', function(e) {
 	
 });
 
-// 일정 선택 CSS
-$(document).on('click', '#dayContent .selectAble', function() {
 
-	$("#dayContent .selectAble").each(function() {
-		$(this).removeClass('selected');
-	});
 
-	$(this).addClass('selected');
-
-});
-
-// 테마 선택시 CSS 변경 + 데이터 호출
+// 검색 - 테마 선택시 CSS 변경 + 데이터 호출
 $(document).on('click', '#searchTheme .image_box', function() {
 
 	if (searchFlag == 0) return;
@@ -133,24 +112,16 @@ $(document).on('click', '#searchTheme .image_box', function() {
 	
 });
 
-// DAY 추가 버튼
-$(".dayAdd").on('click', function() {
+// 일정DAY 선택 CSS
+$(document).on('click', '#dayContent .selectAble', function() {
 
-	let tmp = '';
+	$("#dayContent .selectAble").each(function() {
+		$(this).removeClass('selected');
+	});
 
-	tmp += '<div class="dayItem selectAble">'
-	tmp += '<div class="dayItemLeft">'
-	tmp += '<div class="dayDay">DAY1</div>'
-	tmp += '<div class="dayDate">03.10</div>'
-	tmp += '</div>'
-	tmp += '<div class="dayItemRight">'
-	tmp += '<div class="dayOfWeek">수요일</div>'
-	tmp += '</div>'
-	tmp += '</div>'
-
-	$("#dayList").append(tmp);
+	$(this).addClass('selected');
+	
 });
-
 
 $(function() {
 
@@ -159,22 +130,24 @@ $(function() {
 	 $("#scheduleDetail").sortable({
 		 revert : true,
 		 placeholder : "schedule-placeholder",
-//		 update: function( event, ui ) {
-//			 console.log('update');
-//			 //$("#scheduleDetail").sortable( "refresh" );
-//		 },
-//		 beforeStop: function( event, ui) {
-//			 console.log('beforeStop');
-//
-//		 },
-		 over: function( event, ui) {
+		 update: function( event, ui ) {
+			 console.log('update');
+			 //$("#scheduleDetail").sortable( "refresh" );
+		 },
+		 change: function( event, ui) {
+			 console.log('change');
 
 		 },
+//		 over: function( event, ui) {
+//
+//		 },
 		 stop: function( event, ui) {
 			 console.log('stop');
 			 console.log($(this).children('.img_box'));
 			 rearrangeItem(); // 경로 숫자 재설정
 			 setScheduleMaker(); // 마커 재생성
+			 
+			 saveScheduledata(); // 일정정보 저장
 		 }
 //		 recive: function( event, ui) {
 //			 console.log('recive');
@@ -326,6 +299,7 @@ $(document).on('click', '.deleteScheduleItem', function(e) {
 //	$("#scheduleDetail").sortable( "refreshPositions" ); // Refresh the cached positions of the sortable items
 	rearrangeItem(); // 경로 숫자 재설정
 	setScheduleMaker(); // 마커 재생성
+	saveScheduledata(); // 일정정보 저장
 
 });
 
@@ -370,9 +344,92 @@ function rearrangeItem() {
 		//$(this).parent().removeAttr('data-index'); // 순서 삭제
 		//$(this).parent().attr('data-index', index); // 순서 추가
 		
+		$(this).parent().attr('id', 'index_'+ index);
+		
 		$(this).parent().data("index", index);
+		//$(this).parent().data("id", 'index_' + index);
 	});
+}
 
+function saveScheduledata() {
+	
+	console.log(tripPlanSeq);
+	console.log($('#scheduleDetail').children().length);
+	let count = $('#scheduleDetail').children().length;
+	let title, addr1, img, mapX, mapY, contentId, contentTypeId, planNo, cat1;
+	
+	let planDay = $('#scheduleDate').children().first().text().substring(3);
+	let tripseq = tripPlanSeq;
+	let jsonData ='[';
+	
+	for (let i = 0; i<count ; i++) {
+		let item = '';
+		
+		title = $('#scheduleDetail').children().eq(i).data('title');
+		addr1 = $('#scheduleDetail').children().eq(i).data('addr1');
+		img = $('#scheduleDetail').children().eq(i).data('firstimage');
+		mapX = $('#scheduleDetail').children().eq(i).data('mapx');
+		mapY = $('#scheduleDetail').children().eq(i).data('mapy');
+		contentId = $('#scheduleDetail').children().eq(i).data('contentid');
+		contentTypeId = $('#scheduleDetail').children().eq(i).data('contenttypeid');
+		planNo = $('#scheduleDetail').children().eq(i).data('index'); 
+		cat1 = $('#scheduleDetail').children().eq(i).data('cat1');
+
+
+/*		console.log(title);
+		console.log(addr1);
+		console.log(img);
+		console.log(mapX);
+		console.log(mapY);
+		console.log(contentId);
+		console.log(contentTypeId);
+		console.log(planDay);
+		console.log(planNo);
+		console.log(cat1);*/
+
+		item += '{';
+		item += 	'\"title\" : \"' + title + '\",';
+		item += 	'\"addr1\" : \"' + addr1 + '\",';
+		item += 	'\"img\" : \"' + img + '\",';
+		item += 	'\"mapX\" : \"' + mapX + '\",';
+		item += 	'\"mapY\" : \"' + mapY + '\",';
+		item += 	'\"contentId\" : \"' + contentId + '\",';
+		item += 	'\"contentTypeId\" : \"' + contentTypeId + '\",';
+		item += 	'\"planDay\" : \"' + planDay + '\",';
+		item += 	'\"planNo\" : \"' + planNo + '\",';
+		item += 	'\"cat1\" : \"' + cat1 +'\"';
+		item += 	'\"tripPlanSeq\" : \"' + tripseq +'\"';
+		item += '},';
+		
+		jsonData += item;
+	}
+	
+	jsonData = jsonData.substring(0, (jsonData.length-1));
+	
+	jsonData += ']';
+	
+	console.log(jsonData);
+	
+	$.ajax({
+		url : '/naman/schedule/savescheduledata.action',
+		type : 'POST',
+		traditional: true,
+		data : "jsonData=" + jsonData +"&tripPlanSeq="+ tripseq + "&planDay=" + planDay,
+		dataType : 'json',
+		success : function(data) {
+			console.log(data);
+
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			console.log("Status: " + textStatus);
+			console.log("Error: " + errorThrown);
+			console.log(errorThrown);
+			console.warn(XMLHttpRequest.responseText);
+		}
+	});
+	
+	
+	
 }
 
 
@@ -632,6 +689,8 @@ function getData(number, cate) {
 							setMarkerIW.close(); // 인포윈도우 초기화
 						}
 						
+						saveScheduledata(); // 일정정보 저장
+						
 //						moveMap();
 
 					});
@@ -722,9 +781,8 @@ $('#detailCommonInfo').on('show.bs.modal', function (e) {
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 mapOption = {
-	center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	level : 8 // 지도의 확대 레벨
-
+	center : new kakao.maps.LatLng(36.658481, 127.997876), // 지도의 중심좌표
+	level : 12 // 지도의 확대 레벨
 };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -807,7 +865,11 @@ function setMarker(mapx, mapy, title, category) {
 		position : selectPosition,
 		image : markerImage
 	});
-
+	
+	// 맵 확대 수정
+	map.setLevel(9);
+	
+	
 	// 마커가 지도 위에 표시되도록 설정합니다
 	selectMarker.setMap(map);
 
@@ -936,6 +998,13 @@ function setScheduleMaker() {
 		}
 	}
 	
+	// 맵에 표시할 마커가 없을 경우 처리
+	//console.log(scheduleInfoList);
+	if (scheduleInfoList.length == 0) {
+		moveMapDefault();
+		return;
+	}
+	
 	scheduleMarkers = [];
 	overlays = [];
 	distanceOverlays = [];
@@ -956,7 +1025,7 @@ function setScheduleMaker() {
 			cat1 = scheduleInfoList[i].cat1;			
 		}
 		let index = scheduleInfoList[i].index;
-//		console.log(title, cat1, index);
+		//console.log(title, cat1, index);
 		
 		let imageSrc = '/naman/resources/images/schedule/marker/index/'+ cat1 +'/'+ index +'.png';
 	    
@@ -1097,8 +1166,8 @@ function displayDistance(position, distance, lineCenterX, lineCenterY) {
 		});
 		
 		distanceOverlays.push(distanceOverlay);
-		console.log('거리값을 나타내는 overlay 배열');
-		console.log(distanceOverlays);
+		//console.log('거리값을 나타내는 overlay 배열');
+		//console.log(distanceOverlays);
 
 		// 지도에 표시합니다
 		distanceOverlay.setMap(map);
@@ -1126,6 +1195,15 @@ function moveMap(mapx, mapy) {
     map.panTo(moveLatLon);            
 }
 
+
+/*
+ * 지도의 기본 세팅으로 중심을 이동 시킨다
+ */
+function moveMapDefault() {
+	var LatLng = new kakao.maps.LatLng('36.658481', '127.997876');
+	map.setLevel(12);
+	map.setCenter(LatLng);
+}
 
 
 

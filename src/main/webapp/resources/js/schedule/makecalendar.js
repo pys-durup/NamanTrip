@@ -281,13 +281,36 @@ console.log(dayofweeksame[3].getAttribute("data-column"));
 checkDate.onclick = function disappearCalendar() {
     let selectyear = document.getElementsByClassName("year")[0].textContent;
     let selectmonth = document.getElementsByClassName("month")[0].textContent;
+    
+    if (selectmonth.length == 2) {
+    	selectmonth = '0' + selectmonth;
+    }
+    
+    let tempdayin;
+    let tempdayout;
+    if (selectdayin[0].textContent.length == 1) {
+    	tempdayin = '0' + selectdayin[0].textContent;
+    } else {
+    	tempdayin = selectdayin[0].textContent
+    }
+    
+
+    if (selectdayout[0].textContent.length == 1) {
+    	tempdayout = '0' + selectdayout[0].textContent;
+    } else {
+    	tempdayout = selectdayout[0].textContent;
+    }
+    
+    console.log(selectmonth);
+    console.log(selectdayin);
+    console.log(selectdayout);
     // from으로 넘길 hidden 태그의 데이터
     let startDate = document.getElementById("startDate");
     let endDate = document.getElementById("endDate");
     let totalDate = document.getElementById("totalDate");
 
-    let tempStartDate = selectyear + "-" + selectmonth.substr(0, selectmonth.length-1) + "-" + selectdayin[0].textContent;
-    let tempEndDate = selectyear + "-" + selectmonth.substr(0, selectmonth.length-1) + "-" + selectdayout[0].textContent
+    let tempStartDate = selectyear + "-" + selectmonth.substr(0, selectmonth.length-1) + "-" + tempdayin;
+    let tempEndDate = selectyear + "-" + selectmonth.substr(0, selectmonth.length-1) + "-" + tempdayout;
 
     // 여행 일수 구하기
     var sdt = new Date(tempStartDate);
@@ -296,8 +319,8 @@ checkDate.onclick = function disappearCalendar() {
     
     console.log(dateDiff);
 
-    dateIn.innerHTML = selectyear + "년" + ' ' + selectmonth + ' ' + selectdayin[0].textContent + "일";
-    dateOut.innerHTML = selectyear + "년" + ' ' + selectmonth + ' ' + selectdayout[0].textContent + "일";
+    dateIn.innerHTML = selectyear + "년" + ' ' + selectmonth + ' ' + tempdayin + "일";
+    dateOut.innerHTML = selectyear + "년" + ' ' + selectmonth + ' ' + tempdayout + "일";
 
     startDate.value = tempStartDate;
     endDate.value = tempEndDate;

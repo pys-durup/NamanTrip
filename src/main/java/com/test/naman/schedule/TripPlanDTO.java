@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class TripPlanDTO {
 	
-	private String tripplanSeq;
+	private String tripPlanSeq;
 	private String customerSeq;
 	private String title;
 	private String img;
