@@ -64,7 +64,7 @@ public class ScheduleController {
 
 		try {
 			if (result == 1) {
-				response.sendRedirect("/naman/schedule/addschedule.action?tripPlanSeq="+tripPlanSeq+"&startDate="+dto.getStartDate()+"&endDate="+dto.getEndDate()+"&totalDate="+dto.getTotalDate());
+				response.sendRedirect("/naman/schedule/addschedule.action?tripPlanSeq="+tripPlanSeq);
 			} else {
 				response.sendRedirect("/naman/schedule/addbasic.action");
 			}
@@ -84,9 +84,9 @@ public class ScheduleController {
 		request.setAttribute("regionList", regionList);
 		
 		request.setAttribute("tripPlanSeq", tripPlanSeq);
-		request.setAttribute("startDate", startDate);
-		request.setAttribute("endDate", endDate);
-		request.setAttribute("totalDate", totalDate);
+		request.setAttribute("startDate", dto.getStartDate());
+		request.setAttribute("endDate", dto.getEndDate());
+		request.setAttribute("totalDate", dto.getTotalDate());
 
 		return "addschedule";
 	}
