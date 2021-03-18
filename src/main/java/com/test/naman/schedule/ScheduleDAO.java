@@ -52,15 +52,22 @@ public class ScheduleDAO {
 		return template.selectList("schedule.loadscheduledata", dto);
 	}
 
-	public int increaseDay(TripPlanDTO dto) {
+	public int updateDay(TripPlanDTO dto) {
 		
-		return template.update("schedule.increaseday", dto);
+		return template.update("schedule.updateday", dto);
 	}
 
 	public TripPlanDTO getTripPlan(String tripPlanSeq) {
 		
 		return template.selectOne("schedule.gettripplan", tripPlanSeq);
 	}
+
+	public int dayDeleteSchedule(PlanDetailDTO dto) {
+		
+		return template.delete("schedule.daydeleteschedule", dto);
+	}
+
+
 
 
 

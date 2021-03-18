@@ -227,7 +227,37 @@ public class ScheduleController {
 		
 		// DB처리
 		// 여행 종료날짜 총여행일수 UPDATE
-		int result = dao.increaseDay(dto);
+		int result = dao.updateDay(dto);
+		
+		try {
+			PrintWriter out = response.getWriter();
+			out.println(result);
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 여행 day 삭제
+	@RequestMapping(value = "/schedule/decreaseday.action", method = { RequestMethod.GET })
+	public void decreaseDay(HttpServletRequest request, HttpServletResponse response, HttpSession session, TripPlanDTO tdto, String planDay) {
+		
+		System.out.println(tdto.getTripPlanSeq());
+		System.out.println(tdto.getTotalDate());
+		System.out.println(tdto.getEndDate());
+		String tripPlanSeq = tdto.getTripPlanSeq();
+		
+		// DB처리
+		// 여행 종료날짜 총여행일수 UPDATE
+		int result = dao.updateDay(tdto);
+		
+		// 삭제된 DAY에 남아있던 여행정보가 있다면 DELETE - tripPlanSeq, planDay 필요 
+		PlanDetailDTO ddto = new PlanDetailDTO();
+		ddto.setTripPlanSeq(tripPlanSeq);
+		planDay = String.valueOf(Integer.parseInt(planDay) + 1);
+		ddto.setPlanDay(planDay);
+		
+		result += dao.clearScheduleData(ddto);
 		
 		try {
 			PrintWriter out = response.getWriter();

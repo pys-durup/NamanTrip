@@ -45,10 +45,10 @@
 			<div class="dayDel">
 				<div>DAY 삭제</div>
 			</div>
-			<div>seq : ${tripPlanSeq}</div>
+			<%-- <div>seq : ${tripPlanSeq}</div>
 			<div>startDate : ${startDate}</div>
 			<div>endDate : ${endDate}</div>
-			<div>totalDate : ${totalDate}</div>
+			<div>totalDate : ${totalDate}</div> --%>
 			
 		</div>
 
@@ -240,6 +240,10 @@
 	//console.log(getDayOfWeek(endDate));
 	//console.log(new Date(startDate));
 	
+	// 초기 클릭상태 만들기
+	$("#dayList").children().first('.dayitem').trigger('click');
+	loadData(1, tripPlanSeq);
+	
 	// 초기 세팅하는 부분
 	setDaylist();
 	$("#dayList").children().first().addClass('selected');
@@ -341,8 +345,13 @@
 		$("#dayList").append(tmp);
 		setDayHeader(); // 날짜 수정
 		
+		//클릭상태 만들기
+		$("#dayList").children().last('.dayitem').trigger('click');
 
 	});
+	
+	
+	
 	
 	// DAY 삭제 버튼
 	$(".dayDel").on('click', function() {
@@ -356,20 +365,18 @@
 		
 		$("#dayList").children().last().detach();
 		
-
 		totalDate--;
 		//console.log('totalDate : ' + totalDate);
 		
 		endDate.setDate(endDate.getDate() - 1); // 여행 종료일 - 1
-		setDayHeader(); // 날짜 수정
-		let endDateStr = dateFormatToString(endDate); // 하루가 감소한 여행 종료일 'yyyy-mm-dd'
 		
+		let endDateStr = dateFormatToString(endDate); // 하루가 감소한 여행 종료일 'yyyy-mm-dd'
 		//DB 업데이트 ajax
-/*  		$.ajax({
+ 		$.ajax({
 			url : '/naman/schedule/decreaseday.action',
 			type : 'GET',
 			traditional: true,
-			data : "totalDate="+ totalDate + "&endDate=" + endDateStr + "&tripPlanSeq=" + tripPlanSeq,
+			data : "totalDate="+ totalDate + "&endDate=" + endDateStr + "&tripPlanSeq=" + tripPlanSeq + "&planDay=" + totalDate,
 			dataType : 'text',
 			success : function(data) {
 				console.log(data);
@@ -380,7 +387,15 @@
 				console.log(errorThrown);
 				console.warn(XMLHttpRequest.responseText);
 			}
-		});  */
+		});
+		
+
+
+		setDayHeader(); // 날짜 수정
+		
+		$("#dayList").children().first('.dayitem').trigger('click');
+		//loadData(1, tripPlanSeq);
+		
 		
 	});
 	
@@ -395,6 +410,14 @@
 		
 		let planDay = $(this).children().first().children('.dayDay').text().substr(3);
 		let tripseq = tripPlanSeq;
+		
+		loadData(planDay, tripseq); // 해당일의 일정 데이터를 불러온다
+
+
+	});
+	
+	// 일정 데이터를 불러오는 메서드
+	function loadData (planDay, tripseq) {
 		
 		$.ajax({
 			url : '/naman/schedule/loadscheduledata.action',
@@ -468,11 +491,9 @@
 				console.warn(XMLHttpRequest.responseText);
 			}
 		});
-		
-		
-		
+	}
 	
-	});
+	
 	
 	// 여행 일정의 날짜를 변경하는 메서드
 	function setScheduleDate(item) {

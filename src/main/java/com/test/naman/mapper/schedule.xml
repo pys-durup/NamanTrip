@@ -47,9 +47,14 @@
 	</select>
 	
 	
-	<update id="increaseday" parameterType="com.test.naman.schedule.TripPlanDTO">
+	<update id="updateday" parameterType="com.test.naman.schedule.TripPlanDTO">
 		update tblTripPlan set totalDate = #{totalDate}, endDate = #{endDate} where tripPlanSeq = #{tripPlanSeq}
 	</update>
 	
+	<delete id="daydeleteschedule" parameterType="com.test.naman.schedule.PlanDetailDTO">
+		delete from tblPlanDetail where tripPlanSeq = #{tripPlanSeq} and planDay = #{planDay}
+	</delete>
+	
+
 	
 </mapper>
