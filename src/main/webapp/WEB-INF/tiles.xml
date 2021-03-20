@@ -32,7 +32,7 @@
  	<definition name="*.*" template="/WEB-INF/views/layout/mainlayout.jsp">
 		<put-attribute name="asset" value="/WEB-INF/views/inc/asset.jsp"></put-attribute>
 		<put-attribute name="includecss" value="/{1}/{2}"></put-attribute> 
-<!-- 		<put-attribute name="includejs" value="/schedule/addschedule"></put-attribute> -->
+		<put-attribute name="includejs" value="/{1}/{2}"></put-attribute>
 		<put-attribute name="header" value="/WEB-INF/views/inc/header.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>		
 	</definition>

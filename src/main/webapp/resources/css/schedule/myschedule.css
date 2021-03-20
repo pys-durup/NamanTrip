@@ -1,0 +1,217 @@
+/*공통 적용 *********************************************************************/
+@font-face {
+    font-family: 'InfinitySans-RegularA1';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+    html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+    body, p, div, span, ul, li, dl, dt, dd, table, th, td, a, blockquote, input, textarea, fieldset, h1, h2, h3, h4, h5, h6, small, strong, b, i, em {
+        font-family: 'InfinitySans-RegularA1';
+
+    }
+
+    html {
+        position: relative;
+        left: 0;
+        top: 0;
+        min-height: 100%;
+        background-color: #EEEEEE;
+        
+    }
+    
+    html, body {
+        padding: 0;
+        margin: 0;
+        background: #ffffff;   
+    }
+    
+    body {
+        overflow-y: scroll;
+        height: 101%;
+    }
+    
+    div {
+        padding: 0;
+    }
+    
+    input,
+    input:focus {
+        outline: none !important;
+        box-shadow: none !important
+    }
+    
+    input[type="text"],
+    textarea {
+        box-shadow: none !important;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        resize: none
+    }
+    
+    
+    button,
+    .btn-group,
+    .open,
+    .dropdown-toggle,
+    .btn {
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    .btn-primary {
+        background-color: #405318;
+    }
+
+    .btn-primary:hover {
+        background-color: #39491a;
+    }
+
+/* 헤더 *********************************************************************/
+#headerContainer {
+    width: 100%;
+    height: 60px;
+    border: 2px solid #ccc;
+    box-shadow: 3px 3px 3px 3px #ccc;
+}
+
+
+
+#headerContainer .headerLeft {
+    float: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    font-size: 1.7em;
+    font-weight: bold;
+
+}
+
+#headerContainer .headerRight {
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+    font-size: 1.4em;
+}
+
+#headerContainer::after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+/* 섹션 **************************************/
+
+/* background:url('http://img.earthtory.com/img/city_default/205/312.jpg') no-repeat;background-size:cover;background-position:center center; */
+
+#sectionOne {
+    width: 100%;
+    height: 280px;
+    min-width: 1140px;
+    text-align: center;
+    border: 1px solid black;
+    color: white;
+    margin-bottom: 20px;
+    background-image: url('/naman/resources/images/schedule/trip/back3.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 40%;
+}
+
+#sectionOne #sectionTitle {
+    padding-top: 50px;
+    font-size: 45px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#sectionOne .content {
+    font-size: 17px;
+    margin-top: 10px;
+}
+
+#sectionOne .btnGroup {
+    margin-top: 30px;
+    color: white;
+}
+
+/* ************************************** */
+
+.menu {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+
+
+/* ************************************** */
+
+.scheduleItem {
+    box-shadow: 3px 3px 3px 3px #ddd;
+    margin-bottom: 35px;
+    position: relative;
+    left: 0;
+    top: 0;
+}
+
+.scheduleItem:hover {
+    opacity: 0.7;
+}
+
+.menu .col-md-2 {
+    margin-left: 20px;
+    width: 11%;
+    min-width: 11%;
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 30px;
+}
+
+.menu .col-md-offset-10 {
+    margin-left: 86%;
+}
+
+.scheduleItem .schedule_image img{
+    width: 100%;
+    height: 220px;
+}
+
+.scheduleItem .tripInfo {
+    color: white;
+    font-size: 18px;
+    position: absolute;
+    left: 10px;
+    top: 150px;
+}
+
+
+.scheduleItem .tripInfo .planDay {
+    color: #EEE;
+}
+
+.scheduleItem .schedule_content {
+    width: 100%;
+    height: 60px;
+    border: 1px solid #ccc;
+    
+}
+
+.scheduleItem .content {
+    padding: 15px;
+}
+
+.scheduleItem .content span{
+    float: right;
+    margin-left: 7px;
+}
+
+.scheduleItem .content .edit, .scheduleItem .content .del {
+    color: #5085BB;
+    cursor: pointer;
+}
+

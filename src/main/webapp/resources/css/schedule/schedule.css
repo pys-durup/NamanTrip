@@ -1,0 +1,226 @@
+/*공통 적용 *********************************************************************/
+@font-face {
+    font-family: 'InfinitySans-RegularA1';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+    html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+    body, p, div, span, ul, li, dl, dt, dd, table, th, td, a, blockquote, input, textarea, fieldset, h1, h2, h3, h4, h5, h6, small, strong, b, i, em {
+        font-family: 'InfinitySans-RegularA1';
+
+    }
+
+    html {
+        position: relative;
+        left: 0;
+        top: 0;
+        min-height: 100%;
+        background-color: #EEEEEE;
+        
+    }
+    
+    html, body {
+        padding: 0;
+        margin: 0;
+        background: #ffffff;   
+    }
+    
+    body {
+        overflow-y: scroll;
+        height: 101%;
+    }
+    
+    div {
+        padding: 0;
+    }
+    
+    input,
+    input:focus {
+        outline: none !important;
+        box-shadow: none !important
+    }
+    
+    input[type="text"],
+    textarea {
+        box-shadow: none !important;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        resize: none
+    }
+    
+    
+    button,
+    .btn-group,
+    .open,
+    .dropdown-toggle,
+    .btn {
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    .btn-primary {
+        background-color: #405318;
+    }
+
+    .btn-primary:hover {
+        background-color: #39491a;
+    }
+
+    .btn-default {
+        background-color: #4a5f1e;
+        color: white;
+    }
+    
+    .btn-default:hover {
+        background-color: #708d32;
+    }
+    
+
+/* 헤더 *********************************************************************/
+#headerContainer {
+    width: 100%;
+    height: 60px;
+    border: 2px solid #ccc;
+    box-shadow: 3px 3px 3px 3px #ccc;
+}
+
+
+
+#headerContainer .headerLeft {
+    float: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    font-size: 1.7em;
+    font-weight: bold;
+
+}
+
+#headerContainer .headerRight {
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+    font-size: 1.4em;
+}
+
+#headerContainer::after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+
+/* Section ****************************************************/
+
+#sectionOne {
+    width: 100%;
+    height: 280px;
+    min-width: 1140px;
+    text-align: center;
+    border: 1px solid black;
+    background-color: #F8F7F9;;
+    margin-bottom: 20px;
+}
+
+
+#sectionOne .title {
+    margin-top: 40px;
+    font-size: 23px;
+}
+
+#sectionOne .subTitle {
+    font-size: 35px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#sectionOne .content {
+    font-size: 17px;
+    margin-top: 10px;
+}
+
+#sectionOne .btnGroup {
+    margin-top: 30px;
+    color: white;
+}
+
+
+
+
+#sectionTwo {
+    /* border: 1px solid black; */
+    min-width: 1140px;
+}
+
+#sectionTwo .itemBox {
+    margin-bottom: 35px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px 1px #ccc;
+}
+
+
+
+.itemBox .boxLeft,  .itemBox .boxRight{
+    float: left;
+    height: 370px;
+    /* border: 1px solid blue; */
+}
+
+.itemBox::after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+.itemBox .boxLeft {
+    width: 55%;
+    padding: 50px;
+}
+
+.itemBox .boxLeft .labelBox {
+    margin-bottom: 20px;
+}
+
+.itemBox .boxLeft .label {
+    background-color:#405318;
+    padding: 7px;
+    font-size: 16px;
+    border-radius: 22%;
+    
+}
+
+.itemBox .boxLeft .title {
+    margin-bottom: 20px;
+}
+
+.itemBox .boxLeft .content {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.itemBox .tip {
+    color: green;
+    font-weight: bold;
+}
+
+
+.itemBox .boxRight {
+    width: 45%;
+    padding: 20px;
+}
+
+.imgBox {
+    border: 1px solid #ccc;
+}
+
+.imgBox img {
+    width: 470px;
+    height: 340px;
+    /* object-fit: none; */
+
+}

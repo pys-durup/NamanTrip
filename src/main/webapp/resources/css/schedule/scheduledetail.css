@@ -1,0 +1,392 @@
+/*공통 적용 *********************************************************************/
+@font-face {
+    font-family: 'InfinitySans-RegularA1';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+    html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+    body, p, div, span, ul, li, dl, dt, dd, table, th, td, a, blockquote, input, textarea, fieldset, h1, h2, h3, h4, h5, h6, small, strong, b, i, em {
+        font-family: 'InfinitySans-RegularA1';
+
+    }
+
+    html {
+        position: relative;
+        left: 0;
+        top: 0;
+        min-height: 100%;
+        background-color: #EEEEEE;
+        
+    }
+    
+    html, body {
+        padding: 0;
+        margin: 0;
+        background: #ffffff;   
+    }
+    
+    body {
+        overflow-y: scroll;
+        height: 101%;
+    }
+    
+    div {
+        padding: 0;
+    }
+    
+    input,
+    input:focus {
+        outline: none !important;
+        box-shadow: none !important
+    }
+    
+    input[type="text"],
+    textarea {
+        box-shadow: none !important;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        resize: none
+    }
+    
+    
+    button,
+    .btn-group,
+    .open,
+    .dropdown-toggle,
+    .btn {
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    .btn-primary {
+        background-color: #405318;
+    }
+
+    .btn-primary:hover {
+        background-color: #39491a;
+    }
+
+/* 헤더 *********************************************************************/
+#headerContainer {
+    width: 100%;
+    height: 60px;
+    border: 2px solid #ccc;
+    box-shadow: 3px 3px 3px 3px #ccc;
+}
+
+
+
+#headerContainer .headerLeft {
+    float: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    font-size: 1.7em;
+    font-weight: bold;
+
+}
+
+#headerContainer .headerRight {
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+    font-size: 1.4em;
+}
+
+#headerContainer::after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+
+/* sectionOne ***************************************************************** */
+
+.container {
+    position: relative;
+    width: 1250px;
+    margin: 0px auto;
+}
+
+#sectionOne {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    min-width: 1140px;
+    text-align: center;
+    border: 1px solid black;
+    color: white;
+    margin-bottom: 20px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 60%;
+    /* opacity: 0.8; */
+}
+
+#sectionOne::before {
+    content: "";
+    opacity: 0.4;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: #000;
+}
+
+#sectionOne #cover {
+    text-align: left;
+    position: absolute;
+    left: 30px;
+    top: 200px;
+}
+
+#sectionOne #sectionTitle {
+    padding-top: 50px;
+    font-size: 45px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#sectionOne #nicknaem {
+    font-size: 35px;
+    font-weight: bold;
+}
+
+#sectionOne #region {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#sectionOne #date {
+
+}
+
+
+/* sectionTwo ***************************************************************** */
+
+
+
+#sideNav {
+    position: absolute;
+    left: -120px;
+    top: 170px;
+    text-align: center;
+}
+
+#sectionTwo #scehduleSection, #sectionTwo #mapSection {
+    float: left;
+}
+
+#sectionTwo #scehduleSection {
+    width: 62%;
+    margin-right: 30px;
+    /* border: 1px solid black; */
+}
+
+#sectionTwo #mapSection {
+    width: 430px;
+    border: 1px solid black
+}
+
+#scehduleSection .planDay, #scehduleSection .planInfo {
+    float: left;
+}
+
+.planArea::after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+/* planArea ************************************ */
+.planArea {
+    border: 1px solid cornflowerblue;
+}
+
+.planArea .planDay {
+    width: 15%;
+    height: 60px;
+    background-color: #5f7a25;
+    color: white;
+    font-size: 30px;
+    text-align: center;
+    /* font-weight: bold; */
+    line-height: 55px;
+
+}
+
+.planArea .planInfo {
+    width: 80%;
+    margin-top: 8px;
+    margin-left: 20px;
+}
+
+.planArea .planInfo .date {
+    margin-left: 1px;
+    font-weight: bold;
+    color: #aaa;
+}
+
+.planArea .planInfo .region {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+
+
+
+/* scheduleItem ************************************ */
+
+.scheduleItem .planNo .circle {
+    border: 1px solid #5f7a25;
+    border-radius: 50%;
+    color: white;
+    background-color: #5f7a25;
+    text-align: center;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: 40px;
+    margin-top: 30px;
+    /* position: absolute;
+    left: 10px;
+    top: 10px; */
+}
+
+
+.scheduleItem {
+    border: 1px solid cornflowerblue;
+}
+
+.scheduleItem .planNo {
+    width: 15%;
+    height: 100px;
+}
+
+.scheduleItem .itembox {
+    width: 65%;
+}
+
+.scheduleItem .img img{
+    width: 80px;
+    height: 80px;
+    margin-top: 10px;
+}
+
+.scheduleItem .btnGroup {
+    width: 15%;
+}
+
+
+.scheduleItem .planNo, .scheduleItem .itembox, .scheduleItem .btnGroup  {
+    float: left;
+}
+
+.scheduleItem::after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+.itembox .img, .itembox .itemInfo {
+    float: left;
+}
+
+.itembox::after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+.itembox .itemInfo {
+    margin-left: 16px;
+    margin-top: 20px;
+}
+
+.itembox .itemInfo .title {
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.itembox .itemInfo .cate {
+    font-size: 14px;
+    color: #999;
+}
+
+.scheduleItem .btnGroup {
+    font-size: 40px;
+    color: #8cb338;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.btnGroup span:hover { 
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.line {
+    margin-bottom: 40px;
+}
+
+
+/* mapSection ****************************************** */
+
+#map {
+    height: 400px;
+}
+
+#marker {
+    height: 300px;
+    padding: 30px;
+}
+
+.mincircle {
+    float: left;
+    border-radius: 50%;
+    color: white;
+    background-color: #5f7a25;
+    text-align: center;
+    padding: 5px;
+    width: 22px;
+    height: 22px;
+    font-size: 11px;
+    font-weight: bold;
+    margin-left: 10px;
+    /* margin-left: 40px; */
+    padding: 5px
+}
+
+#marker .markerItem {
+    /* height: 35px; */
+    margin-bottom: 20px;
+}
+
+#marker .name {
+    float: left;
+    margin-left: 5px;
+}
+
+#fixWrapper {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.fix{
+    position: fixed;
+    /* position: absolute; */
+    top: 10px;
+    /* left: 60%; */
+    left: 1096px;
+    z-index:100;
+}

@@ -3,7 +3,7 @@
 
 <div id="headerContainer">
     <div class="headerLeft">
-        <div>여행 이름 공간 1 2 3</div>
+        <div>${title}</div>
     </div>
     <div class="headerRight">
         <div>

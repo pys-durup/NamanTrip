@@ -87,6 +87,7 @@ public class ScheduleController {
 		request.setAttribute("startDate", dto.getStartDate());
 		request.setAttribute("endDate", dto.getEndDate());
 		request.setAttribute("totalDate", dto.getTotalDate());
+		request.setAttribute("title", dto.getTitle());
 
 		return "addschedule";
 	}
@@ -267,7 +268,36 @@ public class ScheduleController {
 			e.printStackTrace();
 		}
 	}
+	
+	// 여행일정 메인페이지
+	@RequestMapping(value = "/schedule/schedule.action", method = { RequestMethod.GET })
+	public String schedule(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+
+		
+
+		return "schedule.schedule";
+	}
+	
+	// 일정 마이페이지
+	@RequestMapping(value = "/schedule/myschedule.action", method = { RequestMethod.GET })
+	public String myschedule(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+
+		
+
+		return "schedule.myschedule";
+	}
+	
+
+	// 여행일정 상세페이지
+	@RequestMapping(value = "/schedule/scheduledetail.action", method = { RequestMethod.GET })
+	public String scheduledetail(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+
+		
+
+		return "schedule.scheduledetail";
+	}
 }
+
 
 
 

@@ -18,7 +18,7 @@
 
 	<tiles:insertAttribute name="header"></tiles:insertAttribute>
 	<tiles:insertAttribute name="content"></tiles:insertAttribute>
-
+	<script src="/naman/resources/js<tiles:getAsString name="includejs"/>.js"></script>
 
 </body>
 </html>
