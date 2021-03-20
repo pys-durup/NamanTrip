@@ -98,7 +98,7 @@
 					<select name="areaCode" id="areaCode" class="form-control">
 						<option value="">지역 선택</option>
 						<c:forEach items="${regionList}" var="regionDTO">
-							<option value="${regionDTO.regionseq }">${regionDTO.name }</option>
+							<option value="${regionDTO.regionseq }">${regionDTO.name}</option>
 						</c:forEach>
 					</select>
 				</div>

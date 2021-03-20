@@ -67,6 +67,11 @@ public class ScheduleDAO {
 		return template.delete("schedule.daydeleteschedule", dto);
 	}
 
+	public List<TripPlanDTO> getTripPlanList(String customerSeq) {
+		
+		return template.selectList("schedule.gettripplanlist", customerSeq);
+	}
+
 
 
 

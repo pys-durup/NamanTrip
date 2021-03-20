@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="container">
-        <div id="sectionOne" style="background-image: url('/naman/resources/images/schedule/trip/back6.jpg');">
+        <div id="sectionOne" style="background-image: url('/naman/resources/images/schedule/trip/back${pic}.jpg');">
             <div id="cover" >
                 <div id="nicknaem">닉네임</div>
                 <div id="region">부산</div>
@@ -69,6 +70,126 @@
                     </div>
                     <div class="itembox">
                         <div class="img"><img src="/naman/resources/images/schedule/trip/back2.jpg" alt=""></div>
+                        <div class="itemInfo">
+                            <div class="title">서울시청</div>
+                            <div class="cate">인문관광지</div>
+                        </div>
+                    </div>
+                    <div class="btnGroup">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                    </div>
+                </div>
+               
+                <div class="line"></div>
+                
+                <div class="planArea">
+                    <div class="planDay">DAY1</div>
+                    <div class="planInfo">
+                        <div class="date">2015.05.01</div>
+                        <div class="region">부산</div>
+                    </div>
+                </div>
+                <div class="scheduleItem">
+                    <div class="planNo">
+                        <div class="circle">1</div>
+                    </div>
+                    <div class="itembox">
+                        <div class="img"><img src="/naman/resources/images/schedule/trip/back2.jpg" alt=""></div>
+                        <div class="itemInfo">
+                            <div class="title">서울시청</div>
+                            <div class="cate">인문관광지</div>
+                        </div>
+                    </div>
+                    <div class="btnGroup">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                    </div>
+                </div>
+
+                <div class="scheduleItem">
+                    <div class="planNo">
+                        <div class="circle">2</div>
+                    </div>
+                    <div class="itembox">
+                        <div class="img"><img src="/kakaomap/imgaes/back2.jpg" alt=""></div>
+                        <div class="itemInfo">
+                            <div class="title">서울시청</div>
+                            <div class="cate">인문관광지</div>
+                        </div>
+                    </div>
+                    <div class="btnGroup">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                    </div>
+                </div>
+
+                <div class="scheduleItem">
+                    <div class="planNo">
+                        <div class="circle">3</div>
+                    </div>
+                    <div class="itembox">
+                        <div class="img"><img src="/kakaomap/imgaes/back2.jpg" alt=""></div>
+                        <div class="itemInfo">
+                            <div class="title">서울시청</div>
+                            <div class="cate">인문관광지</div>
+                        </div>
+                    </div>
+                    <div class="btnGroup">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                    </div>
+                </div>
+               
+                <div class="line"></div>
+                
+                <div class="planArea">
+                    <div class="planDay">DAY1</div>
+                    <div class="planInfo">
+                        <div class="date">2015.05.01</div>
+                        <div class="region">부산</div>
+                    </div>
+                </div>
+                <div class="scheduleItem">
+                    <div class="planNo">
+                        <div class="circle">1</div>
+                    </div>
+                    <div class="itembox">
+                        <div class="img"><img src="/kakaomap/imgaes/back2.jpg" alt=""></div>
+                        <div class="itemInfo">
+                            <div class="title">서울시청</div>
+                            <div class="cate">인문관광지</div>
+                        </div>
+                    </div>
+                    <div class="btnGroup">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                    </div>
+                </div>
+
+                <div class="scheduleItem">
+                    <div class="planNo">
+                        <div class="circle">2</div>
+                    </div>
+                    <div class="itembox">
+                        <div class="img"><img src="/kakaomap/imgaes/back2.jpg" alt=""></div>
+                        <div class="itemInfo">
+                            <div class="title">서울시청</div>
+                            <div class="cate">인문관광지</div>
+                        </div>
+                    </div>
+                    <div class="btnGroup">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                    </div>
+                </div>
+
+                <div class="scheduleItem">
+                    <div class="planNo">
+                        <div class="circle">3</div>
+                    </div>
+                    <div class="itembox">
+                        <div class="img"><img src="/kakaomap/imgaes/back2.jpg" alt=""></div>
                         <div class="itemInfo">
                             <div class="title">서울시청</div>
                             <div class="cate">인문관광지</div>

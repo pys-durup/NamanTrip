@@ -185,13 +185,13 @@
 
 #sectionTwo #scehduleSection {
     width: 62%;
-    margin-right: 30px;
-    /* border: 1px solid black; */
+    margin-right: 20px;
+    border: 1px solid black;
 }
 
 #sectionTwo #mapSection {
-    width: 430px;
-    border: 1px solid black
+    width: 410px;
+   	border: 1px solid black;
 }
 
 #scehduleSection .planDay, #scehduleSection .planInfo {
@@ -206,7 +206,7 @@
 
 /* planArea ************************************ */
 .planArea {
-    border: 1px solid cornflowerblue;
+    /* border: 1px solid cornflowerblue; */
 }
 
 .planArea .planDay {
@@ -376,17 +376,17 @@
     margin-left: 5px;
 }
 
-#fixWrapper {
+/* #fixWrapper {
     position: relative;
     top: 0;
     left: 0;
-}
+} */
 
-.fix{
+.fix {
     position: fixed;
     /* position: absolute; */
     top: 10px;
     /* left: 60%; */
-    left: 1096px;
+    left: 1076px;
     z-index:100;
 }

@@ -14,8 +14,8 @@
             작성완료
         </div>
         <div class="btnGroup">
-            <input type="button" class="btn btn-default" value="나의 여행루트">
-            <input type="button" class="btn btn-default" value="여행 루트 만들러가기">
+            <input type="button" class="btn btn-default" onclick="location.href='/naman/schedule/myschedule.action';" value="나의 여행루트">
+            <input type="button" class="btn btn-default" onclick="location.href='/naman/schedule/addbasic.action';" value="여행 루트 만들러가기">
             <input type="button" class="btn btn-default" value="여행루트 게시판">
         </div>
     </div>

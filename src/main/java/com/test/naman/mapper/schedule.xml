@@ -15,8 +15,8 @@
 	</select>
 	
 	<insert id="addbasicplan" parameterType="com.test.naman.schedule.TripPlanDTO">
-		insert into tblTripPlan (tripPlanseq, customerSeq, title, img, region, totalDate, startDate, endDate, regDate, readcnt, descript, likes)
-		values (tripPlanseq.nextVal, #{customerSeq},  #{title}, null, #{region}, #{totalDate}, #{startDate}, #{endDate}, sysdate, default, #{descript}, default)
+		insert into tblTripPlan (tripPlanseq, customerSeq, title, img, region, totalDate, startDate, endDate, regDate, readcnt, descript, likes, complete)
+		values (tripPlanseq.nextVal, #{customerSeq},  #{title}, null, #{region}, #{totalDate}, #{startDate}, #{endDate}, sysdate, default, #{descript}, default, default)
 	</insert>
 	
 	<select id="getlatestseq" parameterType="String" resultType="String">
@@ -54,6 +54,10 @@
 	<delete id="daydeleteschedule" parameterType="com.test.naman.schedule.PlanDetailDTO">
 		delete from tblPlanDetail where tripPlanSeq = #{tripPlanSeq} and planDay = #{planDay}
 	</delete>
+	
+	<select id="gettripplanlist" parameterType="String"  resultType="com.test.naman.schedule.TripPlanDTO">
+		select * from tblTripPlan where customerSeq = #{customerSeq}
+	</select>
 	
 
 	
