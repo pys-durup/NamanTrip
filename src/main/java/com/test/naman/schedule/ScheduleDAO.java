@@ -72,6 +72,16 @@ public class ScheduleDAO {
 		return template.selectList("schedule.gettripplanlist", customerSeq);
 	}
 
+	public List<PlanDayCntDTO> getPlanDayCnt(String tripPlanSeq) {
+		
+		return template.selectList("schedule.getplandaycnt", tripPlanSeq);
+	}
+
+	public List<PlanDetailDTO> getPlanDetailList(String tripPlanSeq) {
+		
+		return template.selectList("schedule.getplandetaillist", tripPlanSeq);
+	}
+
 
 
 

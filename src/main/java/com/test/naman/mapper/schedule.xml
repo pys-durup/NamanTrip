@@ -59,6 +59,13 @@
 		select * from tblTripPlan where customerSeq = #{customerSeq}
 	</select>
 	
+ 	<select id="getplandaycnt" parameterType="String" resultType="com.test.naman.schedule.PlanDayCntDTO">
+		select planDay, count(*) as cnt from tblPlanDetail where tripPlanSeq = #{tripPlanSeq} group by planDay
+	</select>
+	
+	<select id="getplandetaillist" parameterType="String" resultType="com.test.naman.schedule.PlanDetailDTO">
+		select * from tblPlanDetail where tripPlanSeq = #{tripPlanSeq} order by planDay, planNO
+	</select>
 
 	
 </mapper>

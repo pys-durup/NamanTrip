@@ -361,7 +361,7 @@
     height: 22px;
     font-size: 11px;
     font-weight: bold;
-    margin-left: 10px;
+    margin-left: 20px;
     /* margin-left: 40px; */
     padding: 5px
 }
@@ -389,4 +389,41 @@
     /* left: 60%; */
     left: 1076px;
     z-index:100;
+}
+
+
+/* Modal ****************************************** */
+
+#detailCommonInfo .modal-body {
+	padding: 15px;
+	
+}
+
+#detailCommonInfo .modal-body .image {
+	margin: 10px auto;
+	width: 565px;
+	height: 450px;
+	
+}
+
+#detailCommonInfo .modal-body .image img {
+	width: 550px;
+	height: 450px;
+}
+
+#detailCommonInfo .modal-body .content {
+	width: 550px;
+	font-size: 1.1em;
+}
+
+#detailCommonInfo .modal-body .content div {
+	padding-bottom: 10px;
+}
+
+#detailCommonInfo .modal-body .pdtop {
+	padding-top: 10px;
+}
+
+#detailCommonInfo .makeLine {
+	border-bottom: 1px solid #CCCCCC;
 }

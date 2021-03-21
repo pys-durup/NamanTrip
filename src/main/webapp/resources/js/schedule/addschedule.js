@@ -905,14 +905,7 @@ function getSchedulelatlng() {
 	
 
 	// scheduleInfoList 초기화	
-//	while(scheduleInfoList.length > 0) {
-//		console.log(scheduleInfoList.length);
-//		scheduleInfoList.pop();
-//	};
-	
-//	scheduleInfoList.length = 0;
 	scheduleInfoList = [];
-	//scheduleInfoList.splice(0, scheduleInfoList.length-1);
 	//console.log(scheduleInfoList.length);
 	//console.log(scheduleInfoList[0]);
 	//console.log(scheduleInfoList);
@@ -920,24 +913,8 @@ function getSchedulelatlng() {
 //	console.log($("#scheduleDetail").children());
 	let scheduleDetail = $("#scheduleDetail").children();
 	
-//	console.log($(scheduleDetail[0]).data('title'));
-//	console.log($(scheduleDetail[0]).data('index'));
-//	console.log(" ")
-//	console.log($(scheduleDetail[1]).data('title'));
-//	console.log($(scheduleDetail[1]).data('index'));
-//	console.log(" ")
-//	console.log($(scheduleDetail[2]).data('title'));
-//	console.log($(scheduleDetail[2]).data('index'));
-//	console.log(" ")
-	
-	//console.log(scheduleDetail);
-//	console.log(scheduleDetail.length);
-	
-	
 	for (let i = 0; i < scheduleDetail.length; i++) {
 //		console.log(scheduleDetail[i]);
-//		console.log($(scheduleDetail[i]).data('mapx'));
-//		console.log($(scheduleDetail[i]).data('mapy'));
 		let mapx = $(scheduleDetail[i]).data('mapx');
 		let mapy = $(scheduleDetail[i]).data('mapy');
 		let title = $(scheduleDetail[i]).data('title');
@@ -980,9 +957,10 @@ function setScheduleMaker() {
 	
 	getSchedulelatlng();
 	
+	// 맵에서 마커 초기화
 	if (scheduleMarkers != null) {
 		for (let i = 0; i < scheduleMarkers.length; i++) {
-			scheduleMarkers[i].setMap(null); // 맵에서 마커 초기화
+			scheduleMarkers[i].setMap(null); 
 		}
 	}
 	

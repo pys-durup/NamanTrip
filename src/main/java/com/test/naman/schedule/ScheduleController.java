@@ -3,6 +3,7 @@ package com.test.naman.schedule;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -273,11 +274,11 @@ public class ScheduleController {
 	@RequestMapping(value = "/schedule/myschedule.action", method = { RequestMethod.GET })
 	public String myschedule(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
-		// DB 작업 -> 내가만든 여행 일정 목록을 불러온다
-		// tblTripPlan
+		//session 데이터 가져오기
 		String customerSeq = (String) session.getAttribute("customerSeq");
 		String name = (String) session.getAttribute("name");
 
+		// DB 작업 -> 내가만든 여행일정 목록을 불러온다
 		List<TripPlanDTO> tripPlanList = dao.getTripPlanList(customerSeq);
 		
 		request.setAttribute("tripPlanList", tripPlanList);
@@ -290,12 +291,24 @@ public class ScheduleController {
 	@RequestMapping(value = "/schedule/scheduledetail.action", method = { RequestMethod.GET })
 	public String scheduledetail(HttpServletRequest request, HttpServletResponse response, HttpSession session, String tripPlanSeq, String pic) {
 
+		//session 데이터 가져오기
+		String name = (String) session.getAttribute("name");
+		
 		//tripPlanSeq=2& pic=8
-		// DB 작업 -> tripPlnaSeq로 여행의 정보 가져오기
-		// DB 작업 -> tripPlnaSeq로 여행의 모든 상세정보 가져오기
+		// DB 작업 -> tripPlnaSeq로 여행일정 정보 가져오기
+		TripPlanDTO tripPlanDto = dao.getTripPlan(tripPlanSeq);
+		
+		// DB 작업 -> planDay 여행 일차별로 몇개의 장소에 갔는지 알 수 있도록 가져온다
+		List<PlanDayCntDTO> planDayList = dao.getPlanDayCnt(tripPlanSeq);
+		
+		// DB 작업 -> tripPlnaSeq로 여행일정에 추가한 모든 상세정보 가져오기
+		List<PlanDetailDTO> planDetailList = dao.getPlanDetailList(tripPlanSeq);
 		
 		request.setAttribute("pic", pic);
-		
+		request.setAttribute("tripPlanDto", tripPlanDto);
+		request.setAttribute("planDayList", planDayList);
+		request.setAttribute("planDetailList", planDetailList);		
+		request.setAttribute("name", name);
 		
 		return "schedule.scheduledetail";
 	}
