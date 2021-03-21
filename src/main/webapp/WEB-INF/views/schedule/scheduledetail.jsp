@@ -15,7 +15,7 @@
                     ~ 
                     ${fn:substring(tripPlanDto.endDate,0,10)}
                     (${tripPlanDto.totalDate}일)</div>
-                <div>방문장소 수 / ${tripPlanDto.readcnt} </div>
+                <%-- <div>방문장소 수 / ${tripPlanDto.readcnt} </div> --%>
             </div>
         </div>
         <div id="sideNav">

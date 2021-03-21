@@ -336,4 +336,39 @@ public class ScheduleController {
 			System.out.println(e);
 		}
 	}
+	
+	
+	// 여행일정 추가 완료 delscheduleok.action
+	@RequestMapping(value = "/schedule/delscheduleok.action", method = { RequestMethod.GET })
+	public void delscheduleok(HttpServletRequest request, HttpServletResponse response, HttpSession session, String tripPlanSeq ) {
+
+		// DB 작업 -> tblTripPlan 여행 일정 삭제
+		// tblPlanDetail 여행 상세일정 삭제
+		
+		int result1;
+		int result2;
+		
+		result1 = dao.deletePlanDetail(tripPlanSeq);
+		result2 = dao.deleteTripPlan(tripPlanSeq);
+
+		
+
+		try {
+			if (result1 > 0 && result2 > 0) {
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("location.href='/naman/schedule/myschedule.action';");
+				out.println("</script>");
+				out.close();
+			} else {
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("location.href='/naman/schedule/myschedule.action';");
+				out.println("</script>");
+				out.close();
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 }

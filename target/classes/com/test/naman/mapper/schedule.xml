@@ -66,6 +66,13 @@
 	<select id="getplandetaillist" parameterType="String" resultType="com.test.naman.schedule.PlanDetailDTO">
 		select * from tblPlanDetail where tripPlanSeq = #{tripPlanSeq} order by planDay, planNO
 	</select>
+	
+	<delete id="deleteplandetail" parameterType="String">
+		delete from tblPlanDetail where tripPlanSeq = #{tripPlanSeq}
+	</delete>
 
+	<delete id="deletetripplan">
+		delete from tblTripPlan where tripPlanSeq = #{tripPlanSeq}
+	</delete>
 	
 </mapper>

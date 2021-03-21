@@ -82,6 +82,16 @@ public class ScheduleDAO {
 		return template.selectList("schedule.getplandetaillist", tripPlanSeq);
 	}
 
+	public int deletePlanDetail(String tripPlanSeq) {
+		
+		return template.delete("schedule.deleteplandetail", tripPlanSeq);
+	}
+
+	public int deleteTripPlan(String tripPlanSeq) {
+		
+		return template.delete("schedule.deletetripplan", tripPlanSeq);
+	}
+
 
 
 

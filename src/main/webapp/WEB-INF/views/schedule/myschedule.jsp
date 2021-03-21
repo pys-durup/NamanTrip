@@ -35,10 +35,10 @@
 	                    <div class="schedule_content">
 	                        <div>
 	                            <div class="content">
-	                                ${name} ${ran}
-	                                <span class="edit">수정</span>
+	                                ${name}
+	                                <span class="edit" onclick="editSchedule(${dto.tripPlanSeq})">수정</span>
 	                                <span> | </span>
-	                                <span class="del">삭제</span>
+	                                <span class="del" onclick="showDelokModal(${dto.tripPlanSeq})">삭제</span>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -48,3 +48,22 @@
             
         </div>
     </div>
+    
+    <!-- 삭제 확인 modal -->
+    <div class="modal fade" id="delok" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">여행 일정 삭제</h4>
+      </div>
+      <div class="modal-body">
+        <p>정말 여행 일정을 삭제 하시겠습니까?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-danger" id="delBtn">삭제하기</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
