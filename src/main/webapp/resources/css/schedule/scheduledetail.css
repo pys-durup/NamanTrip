@@ -119,7 +119,7 @@
     height: 350px;
     min-width: 1140px;
     text-align: center;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     color: white;
     margin-bottom: 20px;
     background-repeat: no-repeat;
@@ -195,7 +195,7 @@
 #sectionTwo #scehduleSection {
     width: 62%;
     margin-right: 20px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 #sectionTwo #mapSection {
@@ -215,7 +215,7 @@
 
 /* planArea ************************************ */
 .planArea {
-    /* border: 1px solid cornflowerblue; */
+    border: 1px solid #ccc;
 }
 
 .planArea .planDay {
@@ -272,7 +272,7 @@
 
 
 .scheduleItem {
-    border: 1px solid cornflowerblue;
+    border: 1px solid #ccc;
 }
 
 .scheduleItem .planNo {
