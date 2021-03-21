@@ -21,8 +21,8 @@
         <div id="sideNav">
             <div><span class="glyphicon glyphicon-chevron-up"></span></div>
             <div class="dayGroup">
-	            <div>DAY1</div>
-	            <div>DAY2</div>
+<!-- 	        <div>DAY1</div>
+	            <div>DAY2</div> -->
             </div>
             <div><span class="glyphicon glyphicon-chevron-down"></span></div>
         </div>

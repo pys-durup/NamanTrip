@@ -8,9 +8,13 @@ mapOption = {
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
 
-//초기 지도 세팅
-getSchedulelatlng(1); // 좌표 정보 배열에 담기
-setScheduleMaker(); // 지도에 마커&라인 그리기
+//sideNav 세팅
+setSideNav();
+
+/*//초기 지도 세팅
+clearMap();
+getSchedulelatlng(1); // 좌표 정보 배열에 담기 + 마커그리기
+*/
 
 function changeXY(mapX, mapY){
 	// 좌표 객체
@@ -34,7 +38,7 @@ function getSchedulelatlng(day) {
 	
 	// DAY 몇 인지?
 	// console.log($(".dayBox").children());
-	console.log($('.dayBox[data-id='+day+']').children('.scheduleItem'));
+	//console.log($('.dayBox[data-id='+day+']').children('.scheduleItem'));
 	let scheduleDetail = $('.dayBox[data-id='+day+']').children('.scheduleItem');
 	
 	for (let i = 0; i < scheduleDetail.length; i++) {
@@ -51,12 +55,26 @@ function getSchedulelatlng(day) {
 				}
 		);
 	}
-	console.log(scheduleInfoList);
+	//console.log(scheduleInfoList);
 	
 	setScheduleMaker();
 
 }
 
+function clearMap() {
+	// 맵에서 마커 초기화
+	if (scheduleMarkers != null) {
+		for (let i = 0; i < scheduleMarkers.length; i++) {
+			scheduleMarkers[i].setMap(null); // 맵에서 마커 초기화
+		}
+	}
+	
+	//console.log(drawLine);
+	// 지도에 나타난 선 초기화
+	if (drawLine != undefined) {
+		drawLine.setMap(null);
+	}
+}
 
 
 /*
@@ -65,27 +83,15 @@ function getSchedulelatlng(day) {
 var drawLine;
 var scheduleMarkers = []; // 일정에 추가된 마커 목록
 function setScheduleMaker() {
-	console.log('call setScheduleMaker');
-	
-	// 맵에서 마커 초기화
-	if (scheduleMarkers != null) {
-		for (let i = 0; i < scheduleMarkers.length; i++) {
-			scheduleMarkers[i].setMap(null); // 맵에서 마커 초기화
-		}
-	}
-	
-	console.log('scheduleInfoList length : ' + scheduleInfoList.length);
+	//console.log('call setScheduleMaker');
+
+	//console.log('scheduleInfoList length : ' + scheduleInfoList.length);
 	// 맵에 표시할 마커가 없을 경우 처리
 	if (scheduleInfoList.length == 0) {
 		moveMapDefault();
 		return;
 	}
-	
-	console.log(drawLine);
-	// 지도에 나타난 선 초기화
-	if (drawLine != undefined) {
-		drawLine.setMap(null);
-	}
+
 	
 	scheduleMarkers = []; // 마커 담겨있던 배열 초기화
 	var bounds = new kakao.maps.LatLngBounds(); // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성
@@ -158,7 +164,10 @@ for (let i=0; i < totalDate; i++){
 	offset.push($(dayBox[i]).offset()); 
 }
 console.log(offset);
-
+//console.log(offset[0].top);
+//console.log(offset[1].top);
+//console.log(offset[2].top);
+//console.log(offset[3].top);
 
 /*
  * 지도의 기본 세팅으로 중심을 이동 시킨다
@@ -170,10 +179,7 @@ function moveMapDefault() {
 }
 
 //scroll *********************************************************************
-console.log(offset[0].top);
-console.log(offset[1].top);
-console.log(offset[2].top);
-console.log(offset[3].top);
+
 
 
 
@@ -211,24 +217,25 @@ $(window).scroll(function(){
     	//console.log(offset[i].top);
 		if ($(this).scrollTop() >= 0 && $(this).scrollTop() <= 20) {
         	//console.log(offset[i].top);
-			getSchedulelatlng(i+1); // 좌표 정보 배열에 담기
-			//setScheduleMaker(); // 지도에 마커&라인 그리기
+			clearMap(); // 지도 정보 초기화
+			getSchedulelatlng(i+1); // 좌표 정보 배열에 담기 +마커&라인 그리기
 			console.log(i + '번째 DAY 정보 - 1');
 			break;
         }
 		
 		if (i != totalDate - 1) {
-			if ($(this).scrollTop() > offset[i].top - 20 && $(this).scrollTop() < offset[i].top + 10 ) {
+			if ($(this).scrollTop() > offset[i].top - 20 && $(this).scrollTop() < offset[i].top + 30 ) {
 				console.log(i + '번째 DAY 정보 - 2');
-				getSchedulelatlng(i+1); // 좌표 정보 배열에 담기
-				//setScheduleMaker(); // 지도에 마커&라인 그리기
+				clearMap(); // 지도 정보 초기화
+				getSchedulelatlng(i+1); // 좌표 정보 배열에 담기 +마커&라인 그리기
 
 			}
 		} else {
-			if ($(this).scrollTop() > offset[i].top - 20 && $(this).scrollTop() <= offset[i].top + 10) {
+			if ($(this).scrollTop() > offset[i].top - 20 && $(this).scrollTop() <= offset[i].top + 30) {
 				console.log(i + '번째 DAY 정보 - 3');
-				getSchedulelatlng(i+1); // 좌표 정보 배열에 담기
-				//setScheduleMaker(); // 지도에 마커&라인 그리기
+				clearMap(); // 지도 정보 초기화
+				getSchedulelatlng(i+1); // 좌표 정보 배열에 담기 + 마커&라인 그리기
+			
 			}
 		}
     }
@@ -236,8 +243,55 @@ $(window).scroll(function(){
 
 });
 
+function setSideNav() {
+	
+	for (let i=0; i<totalDate ; i++) {
+		let temp = '<div class="dayNav" data-index="'+(i+1)+'">DAY'+(i+1)+' 일정</div>';
+		$('.dayGroup').append(temp);
+	}
 
-totalDate
+	//totalDate
+}
+
+// sideNav 클릭시 이동 & 좌표 재설정
+$(document).on('click', '.dayGroup .dayNav', function() {
+//	alert($(this).text());
+	
+	let dayBoxs = $('#scehduleSection').children('.dayBox');
+	console.log(dayBoxs);
+	let offset;
+	let index;
+	
+	for (let i=0; i<dayBoxs.length; i++) {
+		//console.log($(dayBoxs[i]).data('id'));
+		//console.log($(this).data('index'));
+		if($(dayBoxs[i]).data('id') == $(this).data('index')) {
+			console.log('일치');
+			offset = $(dayBoxs[i]).offset();
+			index = $(this).data('index');
+		}
+	}
+	
+	console.log(offset);
+	
+	$('html').animate({scrollTop : offset.top}, 200);
+	setTimeout(() => console.log("after"), 300)
+	clearMap();
+	getSchedulelatlng(index);
+	
+
+});
+/*$('#btnStart').click(function(){
+
+    var offset = $('#tpstart').offset(); //선택한 태그의 위치를 반환
+
+          //animate()메서드를 이용해서 선택한 태그의 스크롤 위치를 지정해서 0.4초 동안 부드럽게 해당 위치로 이동함 
+
+      $('html').animate({scrollTop : offset.top}, 400);
+      
+      return;
+ });*/
+
 
 
 // 장소 정보보기 - ajax로 api 데이터 받아오기 *********************************
@@ -269,7 +323,7 @@ $('#detailCommonInfo').on('show.bs.modal', function (e) {
 //			let category = commonData.cat1 + ' | ' + commonData.cat2;
 			
 			let image;
-		    if (commonData.firstimage == "undefined") {
+		    if (commonData.firstimage == undefined) {
 		    	image = "/naman/resources/images/schedule/noImage.gif";
 		    } else {
 		    	image = commonData.firstimage;
